@@ -1,1 +1,15 @@
-{}
+{
+
+  "app": {
+    "name": "Library"
+  },
+
+  "titles": {
+    "home": "Inicio"
+  },
+
+  "home": {
+    "title": "Inicio"
+  }
+
+}

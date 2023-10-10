@@ -8,11 +8,11 @@ import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
 
   protected readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
