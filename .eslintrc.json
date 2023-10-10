@@ -15,6 +15,14 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "max-len": ["warn", { "code": 140, "ignorePattern": "^import .*" }],
+        "quotes": ["warn", "single"],
+        "semi": ["warn", "always"],
+        "eol-last": "warn",
+        "no-trailing-spaces": "warn",
+        "spaced-comment": ["warn", "always"],
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@angular-eslint/no-empty-lifecycle-method": "warn",
         "@angular-eslint/directive-selector": [
           "error",
           {
