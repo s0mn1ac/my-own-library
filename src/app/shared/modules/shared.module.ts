@@ -8,10 +8,12 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 /* Components */
 import { LoaderComponent } from '../components/loader/loader.component';
+import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
-    LoaderComponent
+    LoaderComponent,
+    NavigationBarComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { LoaderComponent } from '../components/loader/loader.component';
     TranslocoModule,
     FormsModule,
     ReactiveFormsModule,
-    LoaderComponent
+    LoaderComponent,
+    NavigationBarComponent
   ]
 })
 export class SharedModule { }

@@ -13,6 +13,10 @@ import { AuthService } from './shared/services/auth.service';
 
 /* Interfaces */
 import { UserInterface } from './shared/interfaces/user.interface';
+import { LibraryInterface } from './shared/interfaces/library.interface';
+import { differenceWith, isEqual } from 'lodash';
+import { LibrariesService } from './shared/services/libraries.service';
+import { DispatcherService } from './shared/services/dispatcher.service';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +32,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private user!: UserInterface | null;
 
+  private libraries!: LibraryInterface[];
+
   constructor(
     private readonly authService: AuthService,
+    private readonly dispatcherService: DispatcherService,
+    private readonly librariesService: LibrariesService,
     private readonly store: Store
   ) { }
 
@@ -78,6 +86,15 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     this.destroyUser();
+
+    this.librariesService.getLibrariesSubscription(this.user.uid)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((libraries: LibraryInterface[]): void => this.onChangeLibraries(libraries));
+  }
+
+  private onChangeLibraries(libraries: LibraryInterface[]): void {
+    this.libraries = libraries;
+    this.dispatcherService.updateLibraries(libraries);
   }
 
 

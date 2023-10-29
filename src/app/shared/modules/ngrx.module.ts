@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LanguageModule } from '../../state/language/language.module';
+import { LibrariesModule } from '../../state/libraries/libraries.module';
 import { ThemeModule } from '../../state/theme/theme.module';
 import { UserModule } from '../../state/user/user.module';
 
@@ -19,6 +20,7 @@ import { UserModule } from '../../state/user/user.module';
       maxAge: 25
     }),
     LanguageModule,
+    LibrariesModule,
     ThemeModule,
     UserModule
   ]

@@ -1,3 +1,17 @@
 <div class="home-page-layout" *transloco="let t">
 
+  <app-navigation-bar
+    [title]="t('home.title')"
+    rightActionIcon="settings"
+    (rightActionEvent)="onClickGoToConfigurationPage()">
+  </app-navigation-bar>
+
+  <section class="home-page-layout__content">
+
+    <button (click)="onClickCreateNewLibrary()">CREATE</button>
+
+    <p *ngFor="let library of libraries">{{ library.name }}</p>
+
+  </section>
+
 </div>

@@ -13,6 +13,13 @@ import { UserInterface } from '../interfaces/user.interface';
 /* Enums */
 import { LanguageEnum } from '../enums/language.enum';
 import { ThemeEnum } from '../enums/theme.enum';
+import { LibraryInterface } from '../interfaces/library.interface';
+import {
+  createLibraryError,
+  createLibraryLoad,
+  createLibrarySuccess,
+  updateLibraries
+} from '../../state/libraries/libraries.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +35,25 @@ export class DispatcherService {
 
   public changeLanguage(language: LanguageEnum): void {
     this.store.dispatch(changeLanguageLoad({ language }));
+  }
+
+
+  /* ----- Libraries -------------------------------------------------------------------------------------------------------------------- */
+
+  public updateLibraries(libraries: LibraryInterface[]): void {
+    this.store.dispatch(updateLibraries({ libraries }));
+  }
+
+  public createLibraryLoad(): void {
+    this.store.dispatch(createLibraryLoad());
+  }
+
+  public createLibrarySuccess(library: LibraryInterface): void {
+    this.store.dispatch(createLibrarySuccess({ library }));
+  }
+
+  public createLibraryError(error: Error): void {
+    this.store.dispatch(createLibraryError({ error }));
   }
 
 

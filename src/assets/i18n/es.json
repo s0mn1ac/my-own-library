@@ -1,15 +1,88 @@
 {
 
   "app": {
-    "name": "Library"
+    "name": "My Own Library"
+  },
+
+  "buttons": {
+    "cancel": "Cancelar",
+    "createAnAccount": "Crea una cuenta",
+    "createLibrary": "Crear biblioteca",
+    "register": "Crear cuenta",
+    "save": "Guardar",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión"
   },
 
   "titles": {
-    "home": "Inicio"
+    "configuration": "Configuración",
+    "createAccount": "Crear cuenta",
+    "home": "Inicio",
+    "library": "Biblioteca",
+    "signIn": "Iniciar sesión"
+  },
+
+  "signUp": {
+    "title": "Crear cuenta",
+    "form": {
+      "email": {
+        "placeholder": "Correo electrónico",
+        "title": "Correo electrónico"
+      },
+      "name": {
+        "placeholder": "Nombre",
+        "title": "Nombre"
+      },
+      "password": {
+        "placeholder": "Contraseña",
+        "title": "Contraseña"
+      },
+      "alreadyOnMyOwnLibrary": "¿Ya en My Own Library?",
+      "signIn": "Inicia sesión"
+    }
+  },
+
+  "signIn": {
+    "title": "Iniciar sesión",
+    "form": {
+      "email": {
+        "placeholder": "Correo electrónico",
+        "title": "Correo electrónico"
+      },
+      "password": {
+        "placeholder": "Contraseña",
+        "title": "Contraseña"
+      },
+      "newOnMyOwnLibrary": "¿Nuevo/a en My Own Library?",
+      "createAnAccount": "Crea una cuenta"
+    }
   },
 
   "home": {
     "title": "Inicio"
+  },
+
+  "library": {
+    "form": {
+      "name": {
+        "placeholder": "Nombre",
+        "title": "Nombre"
+      }
+    }
+  },
+
+  "configuration": {
+    "title": "Configuración",
+    "languages": {
+      "title": "Idioma",
+      "es": "Español",
+      "en": "Inglés"
+    },
+    "themes": {
+      "title": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro"
+    }
   }
 
 }

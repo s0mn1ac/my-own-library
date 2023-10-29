@@ -4,7 +4,7 @@ import { createAction, props } from '@ngrx/store';
 /* Interfaces */
 import { UserInterface } from '../../shared/interfaces/user.interface';
 
-export enum BasketStateEnum {
+export enum UserStateEnum {
   InitUserState = '[User] Init User State',
   UpdateUser = '[User] Update User',
   GetUserLoad = '[User] [Load] Get User',
@@ -16,14 +16,14 @@ export enum BasketStateEnum {
 /* ----- Init User State ---------------------------------------------------------------------------------------------------------------- */
 
 export const initUserState = createAction(
-  BasketStateEnum.InitUserState
+  UserStateEnum.InitUserState
 );
 
 
 /* ----- Update User -------------------------------------------------------------------------------------------------------------------- */
 
 export const updateUser = createAction(
-  BasketStateEnum.UpdateUser,
+  UserStateEnum.UpdateUser,
   props<{ user: UserInterface | null }>()
 );
 
@@ -31,15 +31,15 @@ export const updateUser = createAction(
 /* ----- Get User ----------------------------------------------------------------------------------------------------------------------- */
 
 export const getUserLoad = createAction(
-  BasketStateEnum.GetUserLoad
+  UserStateEnum.GetUserLoad
 );
 
 export const getUserSuccess = createAction(
-  BasketStateEnum.GetUserSuccess,
+  UserStateEnum.GetUserSuccess,
   props<{ user: UserInterface }>()
 );
 
 export const getUserError = createAction(
-  BasketStateEnum.GetUserError,
+  UserStateEnum.GetUserError,
   props<{ error: Error }>()
 );

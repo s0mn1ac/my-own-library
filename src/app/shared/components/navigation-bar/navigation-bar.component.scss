@@ -1,0 +1,28 @@
+div.navigation-bar-layout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  section.navigation-bar-layout__left-action-section,
+  section.navigation-bar-layout__right-action-section {
+    width: var(--default-item-width);
+    height: var(--default-item-height);
+  }
+
+  section.navigation-bar-layout__title-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+}

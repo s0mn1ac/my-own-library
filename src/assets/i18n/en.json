@@ -1,15 +1,88 @@
 {
 
   "app": {
-    "name": "Library"
+    "name": "My Own Library"
+  },
+
+  "buttons": {
+    "cancel": "Cancel",
+    "createAnAccount": "Create an account",
+    "createLibrary": "Create library",
+    "register": "Register",
+    "save": "Save",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
   },
 
   "titles": {
-    "home": "Home"
+    "configuration": "Configuration",
+    "createAccount": "Create account",
+    "home": "Home",
+    "library": "Library",
+    "signIn": "Sign in"
+  },
+
+  "signUp": {
+    "title": "Sign in",
+    "form": {
+      "email": {
+        "placeholder": "Email",
+        "title": "Email"
+      },
+      "name": {
+        "placeholder": "Name",
+        "title": "Name"
+      },
+      "password": {
+        "placeholder": "Password",
+        "title": "Password"
+      },
+      "alreadyOnMyOwnLibrary": "Already on My Own Library?",
+      "signIn": "Sign in"
+    }
+  },
+
+  "signIn": {
+    "title": "Sign in",
+    "form": {
+      "email": {
+        "placeholder": "Email",
+        "title": "Email"
+      },
+      "password": {
+        "placeholder": "Password",
+        "title": "Password"
+      },
+      "newOnMyOwnLibrary": "New on My Own Library?",
+      "createAnAccount": "Create an account"
+    }
   },
 
   "home": {
     "title": "Home"
+  },
+
+  "library": {
+    "form": {
+      "name": {
+        "placeholder": "Name",
+        "title": "Name"
+      }
+    }
+  },
+
+  "configuration": {
+    "title": "Configuration",
+    "languages": {
+      "title": "Language",
+      "es": "Spanish",
+      "en": "English"
+    },
+    "themes": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark"
+    }
   }
 
 }

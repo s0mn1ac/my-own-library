@@ -1,0 +1,46 @@
+<div class="configuration-page-layout" *transloco="let t">
+
+  <app-navigation-bar
+    leftActionIcon="arrow_back"
+    [title]="t('configuration.title')"
+    (leftActionEvent)="onClickGoToHomePage()">
+  </app-navigation-bar>
+
+  <section class="configuration-page-layout__content">
+
+    <div class="content__selection">
+      <h3>{{ t('configuration.languages.title') }}</h3>
+      <div class="selection__selections-container">
+        <div
+          class="selections-container__selection"
+          [ngClass]="{ 'active': language === languageSelected }"
+          *ngFor="let language of languages"
+          (click)="onClickChangeLanguage(language)">
+          <span>{{ t('configuration.languages.' + language) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content__selection">
+      <h3>{{ t('configuration.themes.title') }}</h3>
+      <div class="selection__selections-container">
+        <div
+          class="selections-container__selection"
+          [ngClass]="{ 'active': theme === themeSelected }"
+          *ngFor="let theme of themes"
+          (click)="onClickChangeTheme(theme)">
+          <span>{{ t('configuration.themes.' + theme) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content__sign-out">
+      <button class="danger" (click)="onClickSignOut()">
+        <span *ngIf="!isSigningOut">{{ t('buttons.signOut') }}</span>
+        <app-loader [type]="LoaderTypeEnum.Ellipsis" *ngIf="isSigningOut"></app-loader>
+      </button>
+    </div>
+
+  </section>
+
+</div>
