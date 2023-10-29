@@ -1,0 +1,22 @@
+textarea {
+  box-sizing: border-box;
+  margin: 0;
+  border: 2px solid var(--color-secondary-light);
+  border-radius: var(--border-radius-small);
+  padding: 6px 5px;
+  box-shadow: none;
+  line-height: inherit;
+  transition: border 0.2s ease-in-out;
+  color: inherit;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  outline: none !important;
+
+  &:hover {
+    border-color: var(--color-secondary);
+  }
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}

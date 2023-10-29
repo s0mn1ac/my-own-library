@@ -21,23 +21,27 @@ export class LanguageEffects implements OnInitEffects{
 
   /* ----- Init Language State ---------------------------------------------------------------------------------------------------------- */
 
-  initLanguageState$ = createEffect(() => this.actions$.pipe(
-    ofType(initLanguageState),
-    map(() => changeLanguageLoad({ language: LanguageEnum.Es }))
-  ));
+  initLanguageState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(initLanguageState),
+      map(() => changeLanguageLoad({ language: LanguageEnum.Es }))
+    );
+  });
 
 
   /* ----- Change Language -------------------------------------------------------------------------------------------------------------- */
 
-  changeLanguage$ = createEffect(() => this.actions$.pipe(
-    ofType(changeLanguageLoad),
-    mergeMap(({ language }) => this.languageService.changeLanguage(language)
-      .pipe(
-        map(() => changeLanguageSuccess({ language })),
-        catchError((error) => of(changeLanguageError({ error })))
+  changeLanguage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(changeLanguageLoad),
+      mergeMap(({ language }) => this.languageService.changeLanguage(language)
+        .pipe(
+          map(() => changeLanguageSuccess({ language })),
+          catchError((error) => of(changeLanguageError({ error })))
+        )
       )
-    )
-  ));
+    );
+  });
 
 
   constructor(

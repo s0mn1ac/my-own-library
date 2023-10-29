@@ -6,6 +6,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TitleStrategy } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+
+/* Environment */
+import { environment } from '../environments/environment';
 
 /* NgRx */
 import { NgRxModule } from './shared/modules/ngrx.module';
@@ -17,6 +23,7 @@ import { TranslocoRootModule } from './shared/modules/transloco-root.module';
 import { AppRoutingModule } from './app-routing.module';
 
 /* Services */
+import { AuthService } from './shared/services/auth.service';
 import { CustomTitleStrategyService } from './shared/services/custom-title-strategy.service';
 
 /* Components */
@@ -40,8 +47,8 @@ import { SharedModule } from './shared/modules/shared.module';
         provideAuth(() => getAuth()),
         SharedModule
     ],
-  providers:
-    AuthService
+  providers: [
+    AuthService,
     {
       provide: TitleStrategy,
       useClass: CustomTitleStrategyService

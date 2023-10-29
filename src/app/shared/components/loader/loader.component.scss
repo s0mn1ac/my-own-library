@@ -1,0 +1,55 @@
+/* ----- Ellipsis --------------------------------------------------------------------------------------------------------------------- */
+
+div.loader-layout {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 3rem;
+  height: 0.5rem;
+}
+
+.loader, .loader:before, .loader:after {
+  border-radius: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  animation-fill-mode: both;
+  animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+
+.loader {
+  color: var(--color-light);
+  font-size: 7px;
+  position: relative;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+  top: -0.5rem;
+}
+
+.loader:before, .loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+
+.loader:before {
+  left: -1.25rem;
+  animation-delay: -0.32s;
+}
+
+.loader:after {
+  left: 1.25rem;
+}
+
+@keyframes bblFadInOut {
+
+  0%, 80%, 100% {
+    box-shadow: 0 0.5rem 0 -0.5rem
+  }
+
+  40% {
+    box-shadow: 0 0.5rem 0 0
+  }
+}

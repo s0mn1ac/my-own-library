@@ -6,8 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 /* Transloco */
 import { TranslocoModule } from '@ngneat/transloco';
 
+/* Components */
+import { LoaderComponent } from '../components/loader/loader.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoaderComponent
+  ],
   imports: [
     CommonModule,
     TranslocoModule,
@@ -18,7 +23,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     CommonModule,
     TranslocoModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoaderComponent
   ]
 })
 export class SharedModule { }

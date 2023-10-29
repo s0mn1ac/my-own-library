@@ -6,6 +6,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LanguageModule } from '../../state/language/language.module';
+import { ThemeModule } from '../../state/theme/theme.module';
+import { UserModule } from '../../state/user/user.module';
 
 @NgModule({
   declarations: [],
@@ -16,7 +18,9 @@ import { LanguageModule } from '../../state/language/language.module';
       name: 'Library',
       maxAge: 25
     }),
-    LanguageModule
+    LanguageModule,
+    ThemeModule,
+    UserModule
   ]
 })
 export class NgRxModule { }

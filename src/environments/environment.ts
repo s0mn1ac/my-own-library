@@ -1,4 +1,4 @@
-export const environment: unknown = {
+export const environment = {
   firebase: {
     apiKey: 'AIzaSyDmpo0Mg2Mu6UTOw4e0FdxnMnvOjQK2CXQ',
     authDomain: 'my-own-library-angular-app.firebaseapp.com',
