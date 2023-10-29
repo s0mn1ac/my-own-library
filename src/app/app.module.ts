@@ -35,9 +35,13 @@ import { SharedModule } from './shared/modules/shared.module';
         NgRxModule,
         ReactiveFormsModule,
         TranslocoRootModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideFirestore(() => getFirestore()),
+        provideAuth(() => getAuth()),
         SharedModule
     ],
-  providers: [
+  providers:
+    AuthService
     {
       provide: TitleStrategy,
       useClass: CustomTitleStrategyService
