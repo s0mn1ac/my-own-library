@@ -3,9 +3,9 @@
   <div class="navigation-bar-layout">
 
     <section class="navigation-bar-layout__left-action-section">
-      <button class="icon-button" (click)="onClickLeftActionButton()" *ngIf="leftActionIcon !== null">
+      <app-my-button myIconButton myFlatButton (click)="onClickLeftActionButton()" *ngIf="leftActionIcon !== null">
         <em class="my-own-library-icon">{{ leftActionIcon }}</em>
-      </button>
+      </app-my-button>
     </section>
 
     <section class="navigation-bar-layout__title-section">
@@ -13,9 +13,9 @@
     </section>
 
     <section class="navigation-bar-layout__right-action-section">
-      <button class="icon-button" (click)="onClickRightActionButton()" *ngIf="rightActionIcon !== null">
+      <app-my-button myIconButton myFlatButton (click)="onClickRightActionButton()" *ngIf="rightActionIcon !== null">
         <em class="my-own-library-icon">{{ rightActionIcon }}</em>
-      </button>
+      </app-my-button>
     </section>
 
   </div>

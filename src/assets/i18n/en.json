@@ -5,6 +5,7 @@
   },
 
   "buttons": {
+    "addLibrary": "Add library",
     "cancel": "Cancel",
     "createAnAccount": "Create an account",
     "createLibrary": "Create library",

@@ -21,6 +21,7 @@ import { TranslocoRootModule } from './shared/modules/transloco-root.module';
 
 /* Application modules */
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/modules/shared.module';
 
 /* Services */
 import { AuthService } from './shared/services/auth.service';
@@ -28,7 +29,6 @@ import { CustomTitleStrategyService } from './shared/services/custom-title-strat
 
 /* Components */
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/modules/shared.module';
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,0 +1,9 @@
+<button
+  [disabled]="disabled"
+  [class]="myButtonColor"
+  [ngClass]="{
+    'my-icon-button': myIconButton,
+    'my-flat-button': myFlatButton
+  }">
+  <ng-content></ng-content>
+</button>
