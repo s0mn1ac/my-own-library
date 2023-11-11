@@ -19,6 +19,7 @@
     "configuration": "Configuración",
     "createAccount": "Crear cuenta",
     "home": "Inicio",
+    "libraries": "Bibliotecas",
     "library": "Biblioteca",
     "signIn": "Iniciar sesión"
   },
@@ -61,6 +62,10 @@
 
   "home": {
     "title": "Inicio"
+  },
+
+  "libraries": {
+    "title": "Bibliotecas"
   },
 
   "library": {

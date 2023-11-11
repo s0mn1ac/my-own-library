@@ -1,0 +1,15 @@
+@import 'src/styles/mixins';
+
+div.library-page-layout {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  section.library-page-layout__content {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 100px), 1fr));
+    padding: 72px 1rem 1rem 1rem;
+  }
+}

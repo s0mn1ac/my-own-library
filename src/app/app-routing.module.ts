@@ -43,6 +43,14 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
+    path: 'libraries',
+    loadChildren: () => import('./pages/libraries/libraries.module')
+      .then((module) => module.LibrariesComponentModule),
+    title: 'titles.libraries',
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  {
     path: 'library',
     loadChildren: () => import('./pages/library/library.module')
       .then((module) => module.LibraryComponentModule),
