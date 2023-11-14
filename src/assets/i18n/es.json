@@ -16,7 +16,7 @@
   },
 
   "forms": {
-    "mandatoryField": "Campo requerido"
+    "mandatoryField": "Este campo es requerido"
   },
 
   "titles": {

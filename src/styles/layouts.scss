@@ -19,3 +19,34 @@ div.page-layout {
     }
   }
 }
+
+form.dialog-layout,
+div.dialog-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  div.dialog-layout__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  div.dialog-layout__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  div.dialog-layout__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}

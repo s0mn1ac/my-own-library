@@ -1,8 +1,10 @@
 <form class="dialog-layout library-dialog-layout" [formGroup]="form" (submit)="onClickCreateLibrary()" *transloco="let t">
 
-  <h2 mat-dialog-title>{{ t('dialogs.library.createLibrary') }}</h2>
+  <div class="dialog-layout__header">
+    <h2>{{ t('dialogs.library.createLibrary') }}</h2>
+  </div>
 
-  <div mat-dialog-content>
+  <div class="dialog-layout__content">
     <mat-form-field>
       <mat-label>{{ t('dialogs.library.form.name.title') }}</mat-label>
       <input matInput [formControlName]="LibraryFormEnum.Name" [placeholder]="t('dialogs.library.form.name.placeholder')">
@@ -12,9 +14,9 @@
     </mat-form-field>
   </div>
 
-  <div mat-dialog-actions>
-    <button mat-button color="primary" (click)="onClickCancel()">{{ t('buttons.cancel') }}</button>
-    <button mat-button type="submit" color="accent" [disabled]="form.invalid">{{ t('buttons.createLibrary') }}</button>
+  <div class="dialog-layout__footer">
+    <button mat-raised-button color="primary" (click)="onClickCancel()">{{ t('buttons.cancel') }}</button>
+    <button mat-raised-button type="submit" color="accent" [disabled]="form.invalid">{{ t('buttons.createLibrary') }}</button>
   </div>
 
 </form>

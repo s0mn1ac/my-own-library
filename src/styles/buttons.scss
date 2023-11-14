@@ -1,1 +1,8 @@
-
+button[mat-button],
+button[mat-raised-button],
+button[mat-flat-button],
+button[mat-stroked-button] {
+  font-size: 16px;
+  height: 48px !important;
+  border-radius: 10px !important;
+}
