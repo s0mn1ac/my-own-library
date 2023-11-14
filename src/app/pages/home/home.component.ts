@@ -58,10 +58,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   public onClickAddLibrary(): void {
-    const config: MatDialogConfig = {
-      disableClose: true,
-      width: '500px'
-    };
+    const config: MatDialogConfig = { disableClose: true, width: '500px' };
     const matDialogRef: MatDialogRef<LibraryDialogComponent> = this.matDialog.open(LibraryDialogComponent, config);
     matDialogRef.afterClosed().subscribe((dialogOutputData: LibraryDialogOutputDataInterface) => console.log(dialogOutputData));
   }

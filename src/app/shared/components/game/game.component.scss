@@ -1,0 +1,17 @@
+div.game-layout {
+  width: 150px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+
+  section.game-layout__cover-section {
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

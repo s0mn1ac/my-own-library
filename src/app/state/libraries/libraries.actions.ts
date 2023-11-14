@@ -1,5 +1,5 @@
 /* NgRx */
-import { ActionCreator, ActionCreatorProps, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
@@ -14,6 +14,9 @@ export enum LibrariesStateEnum {
   CreateLibraryLoad = '[Libraries] [Load] Create Library',
   CreateLibrarySuccess = '[Libraries] [Success] Create Library',
   CreateLibraryError = '[Libraries] [Error] Create Library',
+  ModifyLibraryLoad = '[Libraries] [Load] Modify Library',
+  ModifyLibrarySuccess = '[Libraries] [Success] Modify Library',
+  ModifyLibraryError = '[Libraries] [Error] Modify Library',
   DeleteLibraryLoad = '[Libraries] [Load] Delete Library',
   DeleteLibrarySuccess = '[Libraries] [Success] Delete Library',
   DeleteLibraryError = '[Libraries] [Error] Delete Library',
@@ -71,6 +74,23 @@ export const createLibrarySuccess = createAction(
 
 export const createLibraryError = createAction(
   LibrariesStateEnum.CreateLibraryError,
+  props<{ error: Error }>()
+);
+
+
+/* ----- Modify Library ----------------------------------------------------------------------------------------------------------------- */
+
+export const modifyLibraryLoad = createAction(
+  LibrariesStateEnum.ModifyLibraryLoad
+);
+
+export const modifyLibrarySuccess = createAction(
+  LibrariesStateEnum.ModifyLibrarySuccess,
+  props<{ library: LibraryInterface }>()
+);
+
+export const modifyLibraryError = createAction(
+  LibrariesStateEnum.ModifyLibraryError,
   props<{ error: Error }>()
 );
 

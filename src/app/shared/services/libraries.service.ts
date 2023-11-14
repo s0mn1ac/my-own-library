@@ -1,6 +1,16 @@
 /* Angular */
 import { Injectable } from '@angular/core';
-import { addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc, where } from '@angular/fire/firestore';
+import {
+  addDoc,
+  arrayRemove,
+  arrayUnion,
+  collectionData,
+  deleteDoc,
+  doc,
+  Firestore,
+  updateDoc,
+  where
+} from '@angular/fire/firestore';
 
 /* Firebase */
 import { collection, CollectionReference, DocumentReference, query, Query } from '@firebase/firestore';
@@ -14,6 +24,7 @@ import { GameInterface } from '../interfaces/game.interface';
 
 /* Constants */
 import { LibrariesCollection } from '../constants/collections.constants';
+import { DocumentData } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -44,10 +55,17 @@ export class LibrariesService {
   }
 
 
+  /* ----- Modify Library --------------------------------------------------------------------------------------------------------------- */
+
+  public modifyLibrary(id: string, name: string): Promise<void> {
+    return updateDoc(doc(this.firestore, LibrariesCollection, id), { name: name });
+  }
+
+
   /* ----- Delete Library --------------------------------------------------------------------------------------------------------------- */
 
-  public deleteLibrary(id: string): Observable<string> {
-    return of(id);
+  public deleteLibrary(id: string): Promise<void> {
+    return deleteDoc(doc(this.firestore, LibrariesCollection, id));
   }
 
 

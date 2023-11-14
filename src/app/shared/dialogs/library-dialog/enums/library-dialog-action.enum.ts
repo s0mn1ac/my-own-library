@@ -1,4 +1,4 @@
 export enum LibraryDialogActionEnum {
-  Save = 'save',
-  Cancel = 'cancel'
+  Save = 'Save',
+  Cancel = 'Cancel'
 }

@@ -1,7 +1,6 @@
 /* Angular */
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 /* Material */
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -20,7 +19,9 @@ import { LibrariesService } from '../../services/libraries.service';
 /* Interfaces */
 import { LibraryDialogFormInterface } from './interfaces/library-dialog-form.interface';
 import { UserInterface } from '../../interfaces/user.interface';
+import { LibraryInterface } from '../../interfaces/library.interface';
 import { LibraryDialogInputDataInterface } from './interfaces/library-dialog-input-data.interface';
+import { LibraryDialogOutputDataInterface } from './interfaces/library-dialog-output-data.interface';
 
 /* Enums */
 import { LibraryDialogFormEnum } from './enums/library-dialog-form.enum';
@@ -40,6 +41,8 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
   protected readonly LibraryFormEnum: typeof LibraryDialogFormEnum = LibraryDialogFormEnum;
 
   public user!: UserInterface | null;
+  public library!: LibraryInterface | null;
+  public titleKey!: string;
 
   private _form!: UntypedFormGroup;
 
@@ -48,9 +51,11 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
     private readonly matDialogRef: MatDialogRef<LibraryDialogComponent>,
     private readonly dispatcherService: DispatcherService,
     private readonly librariesService: LibrariesService,
-    private readonly router: Router,
     private readonly store: Store
-  ) { }
+  ) {
+    this.library = this.dialogInputData?.library ?? null;
+    this.titleKey = this.library === null ? 'dialogs.library.createLibrary' : 'dialogs.library.modifyLibrary';
+  }
 
 
   /* ----- Life cycle methods ----------------------------------------------------------------------------------------------------------- */
@@ -79,9 +84,11 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
 
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
-  public async onClickCreateLibrary(): Promise<void> {
+  public onClickCancel(): void {
+    this.matDialogRef.close({ actionPerformed: LibraryDialogActionEnum.Cancel } as LibraryDialogOutputDataInterface);
+  }
 
-    console.log('create')
+  public async onClickCreateLibrary(): Promise<void> {
 
     if (this.user === null) {
       return;
@@ -95,9 +102,17 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
       .catch((error: Error) => this.dispatcherService.createLibraryError(error));
   }
 
-  public onClickCancel(): void {
-    console.log('cancel')
-    this.matDialogRef.close(LibraryDialogActionEnum.Cancel);
+  public async onClickModifyLibrary(): Promise<void> {
+
+    if (this.user === null || this.library === null) {
+      return;
+    }
+
+    const library: { name: string } = this.form.value;
+
+    this.librariesService.modifyLibrary(this.library.id, library.name)
+      .then((): void => this.matDialogRef.close(LibraryDialogActionEnum.Save))
+      .catch((error: Error) => this.dispatcherService.modifyLibraryError(error));
   }
 
 
@@ -115,7 +130,7 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.form = new FormGroup<LibraryDialogFormInterface>({
-      name: new FormControl({ value: null, disabled: false }, [Validators.required])
+      name: new FormControl({ value: this.library?.name ?? null, disabled: false }, [Validators.required])
     });
   }
 

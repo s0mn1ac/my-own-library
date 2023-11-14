@@ -9,6 +9,7 @@
     "cancel": "Cancel",
     "createAnAccount": "Create an account",
     "createLibrary": "Create library",
+    "modifyLibrary": "Modify library",
     "register": "Register",
     "save": "Save",
     "signIn": "Sign in",
@@ -78,6 +79,10 @@
       "light": "Light",
       "dark": "Dark"
     }
+  },
+
+  "game": {
+    "boxCover": "Box cover"
   },
 
   "dialogs": {

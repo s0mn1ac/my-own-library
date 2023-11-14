@@ -16,12 +16,16 @@ import { TranslocoModule } from '@ngneat/transloco';
 /* Components */
 import { LoaderComponent } from '../components/loader/loader.component';
 import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
+import { LibraryComponent } from '../components/library/library.component';
+import { GameComponent } from '../components/game/game.component';
 import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog.component';
 
 @NgModule({
   declarations: [
     LoaderComponent,
     NavigationBarComponent,
+    LibraryComponent,
+    GameComponent,
     LibraryDialogComponent
   ],
   imports: [
@@ -42,6 +46,8 @@ import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog
     ReactiveFormsModule,
     LoaderComponent,
     NavigationBarComponent,
+    LibraryComponent,
+    GameComponent,
     LibraryDialogComponent,
     MatButtonModule,
     MatIconModule,

@@ -1,3 +1,6 @@
+/* Interfaces */
+import { LibraryInterface } from '../../../interfaces/library.interface';
+
 export interface LibraryDialogInputDataInterface {
-  id?: number;
+  library?: LibraryInterface;
 }

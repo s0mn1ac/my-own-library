@@ -1,7 +1,7 @@
-<form class="dialog-layout library-dialog-layout" [formGroup]="form" (submit)="onClickCreateLibrary()" *transloco="let t">
+<form class="dialog-layout library-dialog-layout" [formGroup]="form" *transloco="let t">
 
   <div class="dialog-layout__header">
-    <h2>{{ t('dialogs.library.createLibrary') }}</h2>
+    <h2>{{ t(titleKey) }}</h2>
   </div>
 
   <div class="dialog-layout__content">
@@ -16,7 +16,8 @@
 
   <div class="dialog-layout__footer">
     <button mat-raised-button color="primary" (click)="onClickCancel()">{{ t('buttons.cancel') }}</button>
-    <button mat-raised-button type="submit" color="accent" [disabled]="form.invalid">{{ t('buttons.createLibrary') }}</button>
+    <button mat-raised-button color="accent" [disabled]="form.invalid" (click)="onClickCreateLibrary()" *ngIf="library === null">{{ t('buttons.createLibrary') }}</button>
+    <button mat-raised-button color="accent" [disabled]="form.invalid" (click)="onClickModifyLibrary()" *ngIf="library !== null">{{ t('buttons.modifyLibrary') }}</button>
   </div>
 
 </form>
