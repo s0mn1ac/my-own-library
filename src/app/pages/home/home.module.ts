@@ -9,12 +9,12 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { HomeComponent } from './home.component';
 
 @NgModule({
+  declarations: [
+    HomeComponent
+  ],
   imports: [
     HomeComponentRoutingModule,
     SharedModule
-  ],
-  declarations: [
-    HomeComponent
   ]
 })
 export class HomeComponentModule { }

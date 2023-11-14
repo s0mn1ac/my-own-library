@@ -2,6 +2,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+/* Material */
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+
 /* RxJs */
 import { Observable, Subject, takeUntil } from 'rxjs';
 
@@ -11,6 +14,10 @@ import { selectLibraries } from '../../state/libraries/libraries.selectors';
 
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
+import { LibraryDialogComponent } from '../../shared/dialogs/library-dialog/library-dialog.component';
+import {
+  LibraryDialogOutputDataInterface
+} from '../../shared/dialogs/library-dialog/interfaces/library-dialog-output-data.interface';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public libraries!: LibraryInterface[];
 
   constructor(
+    private readonly matDialog: MatDialog,
     private readonly router: Router,
     private readonly store: Store
   ) { }
@@ -49,8 +57,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/configuration']).then();
   }
 
-  public onClickCreateNewLibrary(): void {
-    this.router.navigate(['/library']).then();
+  public onClickAddLibrary(): void {
+    const config: MatDialogConfig = { disableClose: true };
+    const matDialogRef: MatDialogRef<LibraryDialogComponent> = this.matDialog.open(LibraryDialogComponent, config);
+    matDialogRef.afterClosed().subscribe((dialogOutputData: LibraryDialogOutputDataInterface) => console.log(dialogOutputData));
   }
 
 

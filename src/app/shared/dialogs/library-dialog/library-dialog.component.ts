@@ -1,47 +1,51 @@
 /* Angular */
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-/* Firebase */
-import { DocumentReference } from '@firebase/firestore';
+/* Material */
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 /* RxJs */
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 /* NgRx */
 import { Store } from '@ngrx/store';
-import { selectUser } from '../../state/user/user.selectors';
+import { selectUser } from '../../../state/user/user.selectors';
 
 /* Services */
-import { DispatcherService } from '../../shared/services/dispatcher.service';
-import { LibrariesService } from '../../shared/services/libraries.service';
+import { DispatcherService } from '../../services/dispatcher.service';
+import { LibrariesService } from '../../services/libraries.service';
 
 /* Interfaces */
-import { LibraryFormInterface } from './interfaces/library-form.interface';
-import { UserInterface } from '../../shared/interfaces/user.interface';
+import { LibraryDialogFormInterface } from './interfaces/library-dialog-form.interface';
+import { UserInterface } from '../../interfaces/user.interface';
+import { LibraryDialogInputDataInterface } from './interfaces/library-dialog-input-data.interface';
 
 /* Enums */
-import { LibraryFormEnum } from './enums/library-form.enum';
+import { LibraryDialogFormEnum } from './enums/library-dialog-form.enum';
+import { LibraryDialogActionEnum } from './enums/library-dialog-action.enum';
 
 @Component({
-  selector: 'app-library',
-  templateUrl: './library.component.html',
-  styleUrls: ['./library.component.scss']
+  selector: 'app-library-dialog',
+  templateUrl: './library-dialog.component.html',
+  styleUrls: ['./library-dialog.component.scss']
 })
-export class LibraryComponent implements OnInit, OnDestroy {
+export class LibraryDialogComponent implements OnInit, OnDestroy {
 
   protected readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
   protected readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
 
-  protected readonly LibraryFormEnum: typeof LibraryFormEnum = LibraryFormEnum;
+  protected readonly LibraryFormEnum: typeof LibraryDialogFormEnum = LibraryDialogFormEnum;
 
   public user!: UserInterface | null;
 
   private _form!: UntypedFormGroup;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public dialogInputData: LibraryDialogInputDataInterface,
+    private readonly matDialogRef: MatDialogRef<LibraryDialogComponent>,
     private readonly dispatcherService: DispatcherService,
     private readonly librariesService: LibrariesService,
     private readonly router: Router,
@@ -77,6 +81,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
   public async onClickCreateLibrary(): Promise<void> {
 
+    console.log('create')
+
     if (this.user === null) {
       return;
     }
@@ -85,8 +91,13 @@ export class LibraryComponent implements OnInit, OnDestroy {
     const library: { name: string } = this.form.value;
 
     this.librariesService.createLibrary(library.name, uid)
-      .then((): Promise<boolean> => this.router.navigate(['/home']))
+      .then((): void => this.matDialogRef.close(LibraryDialogActionEnum.Save))
       .catch((error: Error) => this.dispatcherService.createLibraryError(error));
+  }
+
+  public onClickCancel(): void {
+    console.log('cancel')
+    this.matDialogRef.close(LibraryDialogActionEnum.Cancel);
   }
 
 
@@ -103,7 +114,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
 
   private initForm(): void {
-    this.form = new FormGroup<LibraryFormInterface>({
+    this.form = new FormGroup<LibraryDialogFormInterface>({
       name: new FormControl({ value: null, disabled: false }, [Validators.required])
     });
   }

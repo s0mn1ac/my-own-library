@@ -8,6 +8,12 @@
 
   <section class="page-layout__content home-page-layout__content">
 
+    <p *ngFor="let library of libraries">{{ library.name }}</p>
+
+    <button mat-fab color="accent" class="content__fab-button" (click)="onClickAddLibrary()">
+      <mat-icon>add</mat-icon>
+    </button>
+
   </section>
 
 </div>

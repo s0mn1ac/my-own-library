@@ -43,22 +43,6 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
-    path: 'libraries',
-    loadChildren: () => import('./pages/libraries/libraries.module')
-      .then((module) => module.LibrariesComponentModule),
-    title: 'titles.libraries',
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
-  },
-  {
-    path: 'library',
-    loadChildren: () => import('./pages/library/library.module')
-      .then((module) => module.LibraryComponentModule),
-    title: 'titles.library',
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
-  },
-  {
     path: 'configuration',
     loadChildren: () => import('./pages/configuration/configuration.module')
       .then((module) => module.ConfigurationComponentModule),

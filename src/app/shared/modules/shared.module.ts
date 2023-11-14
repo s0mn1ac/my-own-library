@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 /* Material */
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 /* Transloco */
 import { TranslocoModule } from '@ngneat/transloco';
@@ -13,11 +16,13 @@ import { TranslocoModule } from '@ngneat/transloco';
 /* Components */
 import { LoaderComponent } from '../components/loader/loader.component';
 import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
+import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog.component';
 
 @NgModule({
   declarations: [
     LoaderComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    LibraryDialogComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +30,10 @@ import { NavigationBarComponent } from '../components/navigation-bar/navigation-
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     CommonModule,
@@ -33,7 +41,13 @@ import { NavigationBarComponent } from '../components/navigation-bar/navigation-
     FormsModule,
     ReactiveFormsModule,
     LoaderComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    LibraryDialogComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class SharedModule { }

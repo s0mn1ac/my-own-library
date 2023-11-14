@@ -1,6 +1,6 @@
 /* Angular */
 import { AbstractControl } from '@angular/forms';
 
-export interface LibraryFormInterface {
+export interface LibraryDialogFormInterface {
   name: AbstractControl;
 }

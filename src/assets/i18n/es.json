@@ -15,12 +15,14 @@
     "signOut": "Cerrar sesión"
   },
 
+  "forms": {
+    "mandatoryField": "Campo requerido"
+  },
+
   "titles": {
     "configuration": "Configuración",
     "createAccount": "Crear cuenta",
     "home": "Inicio",
-    "libraries": "Bibliotecas",
-    "library": "Biblioteca",
     "signIn": "Iniciar sesión"
   },
 
@@ -64,19 +66,6 @@
     "title": "Inicio"
   },
 
-  "libraries": {
-    "title": "Bibliotecas"
-  },
-
-  "library": {
-    "form": {
-      "name": {
-        "placeholder": "Nombre",
-        "title": "Nombre"
-      }
-    }
-  },
-
   "configuration": {
     "title": "Configuración",
     "languages": {
@@ -88,6 +77,19 @@
       "title": "Tema",
       "light": "Claro",
       "dark": "Oscuro"
+    }
+  },
+
+  "dialogs": {
+    "library": {
+      "createLibrary": "Crear biblioteca",
+      "modifyLibrary": "Modificar biblioteca",
+      "form": {
+        "name": {
+          "placeholder": "Nombre",
+          "title": "Nombre"
+        }
+      }
     }
   }
 
