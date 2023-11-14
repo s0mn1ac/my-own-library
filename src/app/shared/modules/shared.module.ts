@@ -3,25 +3,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+/* Material */
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 /* Transloco */
 import { TranslocoModule } from '@ngneat/transloco';
 
 /* Components */
 import { LoaderComponent } from '../components/loader/loader.component';
 import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
-import { MyButtonComponent } from '../components/my-button/my-button.component';
 
 @NgModule({
   declarations: [
     LoaderComponent,
-    NavigationBarComponent,
-    MyButtonComponent
+    NavigationBarComponent
   ],
   imports: [
     CommonModule,
     TranslocoModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     CommonModule,
@@ -29,8 +33,7 @@ import { MyButtonComponent } from '../components/my-button/my-button.component';
     FormsModule,
     ReactiveFormsModule,
     LoaderComponent,
-    NavigationBarComponent,
-    MyButtonComponent
+    NavigationBarComponent
   ]
 })
 export class SharedModule { }

@@ -1,172 +1,24 @@
-@import 'styles/buttons';
-@import 'styles/colors';
-@import 'styles/fonts';
-@import 'styles/headings';
-@import 'styles/icons';
-@import 'styles/inputs';
-@import 'styles/layouts';
-@import 'styles/mixins';
-@import 'styles/textareas';
-
-:root {
-
-  --color-primary-lighter: var(--color-indigo-100);
-  --color-primary-light: var(--color-indigo-300);
-  --color-primary: var(--color-indigo-500);
-  --color-primary-dark: var(--color-indigo-700);
-  --color-primary-darker: var(--color-indigo-900);
-
-  --color-primary-lighter-shade: var(--color-indigo-lighter-shade);
-  --color-primary-light-shade: var(--color-indigo-light-shade);
-  --color-primary-dark-shade: var(--color-indigo-dark-shade);
-  --color-primary-darker-shade: var(--color-indigo-darker-shade);
-
-  --color-secondary-lighter: var(--color-retro-grey-100);
-  --color-secondary-light: var(--color-retro-grey-300);
-  --color-secondary: var(--color-retro-grey-500);
-  --color-secondary-dark: var(--color-retro-grey-700);
-  --color-secondary-darker: var(--color-retro-grey-900);
-
-  --color-secondary-light-shade: var(--color-retro-grey-high-shade);
-  --color-secondary-dark-shade: var(--color-retro-grey-low-shade);
-
-  --color-tertiary-lighter: var(--color-retro-red-100);
-  --color-tertiary-light: var(--color-retro-red-300);
-  --color-tertiary: var(--color-retro-red-500);
-  --color-tertiary-dark: var(--color-retro-red-700);
-  --color-tertiary-darker: var(--color-retro-red-900);
-
-  --color-tertiary-light-shade: var(--color-retro-red-high-shade);
-  --color-tertiary-dark-shade: var(--color-retro-red-low-shade);
-
-  --color-info-lighter: var(--color-blue-300);
-  --color-info-light: var(--color-blue-400);
-  --color-info: var(--color-blue-500);
-  --color-info-dark: var(--color-blue-600);
-  --color-info-darker: var(--color-blue-700);
-
-  --color-success-lighter: var(--color-green-300);
-  --color-success-light: var(--color-green-400);
-  --color-success: var(--color-green-500);
-  --color-success-dark: var(--color-green-600);
-  --color-success-darker: var(--color-green-700);
-
-  --color-warning-lighter: var(--color-yellow-300);
-  --color-warning-light: var(--color-yellow-400);
-  --color-warning: var(--color-yellow-500);
-  --color-warning-dark: var(--color-yellow-600);
-  --color-warning-darker: var(--color-yellow-700);
-
-  --color-danger-lighter: var(--color-red-300);
-  --color-danger-light: var(--color-red-400);
-  --color-danger: var(--color-red-500);
-  --color-danger-dark: var(--color-red-600);
-  --color-danger-darker: var(--color-red-700);
-
-  --color-white: #FFFFFF;
-  --color-black: #000000;
-
-  --color-light: #F4F5f8;
-  --color-dark: #222428;
-
-  --background-color-light-low: #EEEEEE;
-  --background-color-light-medium: #F5F5F5;
-  --background-color-light-high: #FAFAFA;
-
-  --background-color-dark-low: #212124;
-  --background-color-dark-medium: #161618;
-  --background-color-dark-high: #0D0D0D;
-
-  --background-color-low: var(--background-color-light-low);
-  --background-color-medium: var(--background-color-light-medium);
-  --background-color-high: var(--background-color-light-high);
-
-  --background-color-light: #FFFFFF;
-  --background-color-dark: #222428;
-  --background-color: var(--background-color-light);
-
-  --background-color-light-reverse: #222428;
-  --background-color-dark-reverse: #FFFFFF;
-  --background-color-reverse: var(--background-color-light-reverse);
-
-  --background-repeating-linear-gradient: repeating-linear-gradient(135deg, var(--color-primary-light), var(--color-primary-light) 32px, var(--color-primary) 32px, var(--color-primary) 64px);
-  --background-linear-gradient: linear-gradient(0deg, var(--color-primary) 0%, var(--color-primary-lighter) 100%);
-
-  --sidebar-background-color: #00000066;
-
-  --color-transparent: #FFFFFF00;
-
-  --font-weight-normal: 400;
-  --font-weight-bold: 500;
-  --font-weight-bolder: 600;
-
-  --font-family: 'Montserrat', sans-serif;
-  --font-size-xs: 14px;
-  --font-size-small: 16px;
-  --font-size-medium: 20px;
-  --font-size-big: 24px;
-  --font-size: var(--font-size-small);
-  --font-weight: var(--font-weight-normal);
-
-  --text-color-dark: #262626;
-  --text-color-light: #FFFFFF;
-  --text-color: var(--text-color-dark);
-
-  --text-color-dark-reverse: #FFFFFF;
-  --text-color-light-reverse: #262626;
-  --text-color-reverse: var(--text-color-dark-reverse);
-
-  --shadow-xs: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  --shadow-s: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  --shadow-m: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  --shadow-l: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  --shadow-xl: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-
-  --shadow-header: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
-
-  --scrollbar-background-color: #C1C1C1;
-  --scrollbar-background-color-hover: #7D7D7D;
-
-  --border-radius-small: 10px;
-  --border-radius-medium: 16px;
-  --border-radius-large: 32px;
-
-  --default-item-width: 36px;
-  --default-item-height: 36px;
-
-}
+@import "styles/buttons";
+@import "styles/colors";
+@import "styles/headings";
+@import "styles/layouts";
+@import "styles/mixins";
+@import "styles/themes";
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html {
   height: 100%;
   width: 100%;
-  background: var(--background-color-high);
-}
-
-html {
   scroll-behavior: smooth;
-}
 
-body {
-  margin: 0;
-  padding: 0;
-  color: var(--text-color);
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  font-weight: var(--font-weight);
-}
-
-body.dark {
-  --text-color: var(--text-color-light);
-  --text-color-reverse: var(--text-color-light-reverse);
-  --background-color: var(--background-color-dark);
-  --background-color-reverse: var(--background-color-dark-reverse);
-  --background-color-low: var(--background-color-dark-low);
-  --background-color-medium: var(--background-color-dark-medium);
-  --background-color-high: var(--background-color-dark-high);
-  --background-repeating-linear-gradient: repeating-linear-gradient(135deg, var(--color-primary), var(--color-primary) 32px, var(--color-primary-dark) 32px, var(--color-primary-dark) 64px);
-  --background-linear-gradient: linear-gradient(0deg, var(--color-primary-darker) 0%, var(--color-primary) 100%);
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
 }

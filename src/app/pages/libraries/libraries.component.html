@@ -1,4 +1,4 @@
-<div class="library-page-layout" *transloco="let t">
+<div class="page-layout library-page-layout" *transloco="let t">
 
   <app-navigation-bar
     [title]="t('libraries.title')"
@@ -6,9 +6,9 @@
     (rightActionEvent)="onClickAddLibrary()">
   </app-navigation-bar>
 
-  <section class="library-page-layout__content">
+  <section class="page-layout__content library-page-layout__content">
 
-    <p *ngFor="let library of libraries">{{ library.name }}</p>
+    <span *ngFor="let library of libraries">{{ library.name }}</span>
 
   </section>
 

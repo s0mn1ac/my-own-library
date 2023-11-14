@@ -46,7 +46,8 @@ export class LibrariesComponent implements OnInit, OnDestroy {
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
   public onClickAddLibrary(): void {
-    this.router.navigate(['/library']).then();
+
+    // this.router.navigate(['/library']).then();
   }
 
 
