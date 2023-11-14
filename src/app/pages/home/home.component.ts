@@ -15,9 +15,7 @@ import { selectLibraries } from '../../state/libraries/libraries.selectors';
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
 import { LibraryDialogComponent } from '../../shared/dialogs/library-dialog/library-dialog.component';
-import {
-  LibraryDialogOutputDataInterface
-} from '../../shared/dialogs/library-dialog/interfaces/library-dialog-output-data.interface';
+import { LibraryDialogOutputDataInterface } from '../../shared/dialogs/library-dialog/interfaces/library-dialog-output-data.interface';
 
 @Component({
   selector: 'app-home',
@@ -58,8 +56,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   public onClickAddLibrary(): void {
-    const config: MatDialogConfig = { disableClose: true, width: '500px' };
-    const matDialogRef: MatDialogRef<LibraryDialogComponent> = this.matDialog.open(LibraryDialogComponent, config);
+
+    const matDialogRef: MatDialogRef<LibraryDialogComponent> = this.matDialog.open(
+      LibraryDialogComponent,
+      {
+        disableClose: true,
+        width: '500px'
+      } as MatDialogConfig
+    );
+
     matDialogRef.afterClosed().subscribe((dialogOutputData: LibraryDialogOutputDataInterface) => console.log(dialogOutputData));
   }
 

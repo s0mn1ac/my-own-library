@@ -7,10 +7,12 @@
   "buttons": {
     "addLibrary": "Add library",
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "createAnAccount": "Create an account",
     "createLibrary": "Create library",
     "modifyLibrary": "Modify library",
     "register": "Register",
+    "reject": "Reject",
     "save": "Save",
     "signIn": "Sign in",
     "signOut": "Sign out"

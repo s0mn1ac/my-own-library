@@ -7,10 +7,12 @@
   "buttons": {
     "addLibrary": "Añadir biblioteca",
     "cancel": "Cancelar",
+    "confirm": "Confirmar",
     "createAnAccount": "Crea una cuenta",
     "createLibrary": "Crear biblioteca",
     "modifyLibrary": "Modificar biblioteca",
     "register": "Crear cuenta",
+    "reject": "Rechazar",
     "save": "Guardar",
     "signIn": "Iniciar sesión",
     "signOut": "Cerrar sesión"
@@ -95,6 +97,13 @@
           "title": "Nombre"
         }
       }
+    }
+  },
+
+  "messages": {
+    "confirmations": {
+      "confirmDeleteLibraryTitle": "Eliminar biblioteca",
+      "confirmDeleteLibraryMessage": "La biblioteca se eliminará de tu cuenta y no podrás recuperarla. ¿Quieres continuar?"
     }
   }
 

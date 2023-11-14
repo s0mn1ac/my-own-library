@@ -19,6 +19,7 @@ import { NavigationBarComponent } from '../components/navigation-bar/navigation-
 import { LibraryComponent } from '../components/library/library.component';
 import { GameComponent } from '../components/game/game.component';
 import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog.component';
+import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog
     NavigationBarComponent,
     LibraryComponent,
     GameComponent,
-    LibraryDialogComponent
+    LibraryDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog
     LibraryComponent,
     GameComponent,
     LibraryDialogComponent,
+    ConfirmationDialogComponent,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
