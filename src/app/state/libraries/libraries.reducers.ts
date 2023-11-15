@@ -2,6 +2,9 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { createLibraryError, createLibraryLoad, createLibrarySuccess, getLibrariesError, getLibrariesLoad, getLibrariesSuccess, deleteLibraryLoad, deleteLibrarySuccess, deleteLibraryError, updateLibraries } from './libraries.actions';
 
+/* Lodash */
+import { orderBy } from 'lodash';
+
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
 
@@ -21,7 +24,7 @@ export const librariesReducer: ActionReducer<LibrariesStateInterface, Action> = 
   initialState,
   on(updateLibraries, (state, { libraries }): LibrariesStateInterface => ({
     ...state,
-    libraries: libraries,
+    libraries: orderBy(libraries, 'created', 'desc'),
     isLoading: false
   })),
   on(getLibrariesLoad, (state): LibrariesStateInterface => ({

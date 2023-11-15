@@ -26,6 +26,7 @@ import { LibraryDialogOutputDataInterface } from './interfaces/library-dialog-ou
 /* Enums */
 import { LibraryDialogFormEnum } from './enums/library-dialog-form.enum';
 import { LibraryDialogActionEnum } from './enums/library-dialog-action.enum';
+import { FirestoreLibraryInterface } from '../../interfaces/firestore-library.interface';
 
 @Component({
   selector: 'app-library-dialog',
@@ -109,10 +110,14 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
 
     this.setLoadingState(true);
 
-    const uid: string = this.user.uid;
-    const library: { name: string } = this.form.value;
+    const library: FirestoreLibraryInterface = {
+      name: this.form.value.name,
+      owner: this.user.uid,
+      games: [],
+      created: new Date()
+    };
 
-    this.librariesService.createLibrary(library.name, uid)
+    this.librariesService.createLibrary(library)
       .then((): void => this.matDialogRef.close(LibraryDialogActionEnum.Save))
       .catch((error: Error) => this.dispatcherService.createLibraryError(error))
       .finally((): void => this.setLoadingState(false));

@@ -14,6 +14,7 @@ import { GameInterface } from '../interfaces/game.interface';
 
 /* Constants */
 import { LibrariesCollection } from '../constants/collections.constants';
+import { FirestoreLibraryInterface } from '../interfaces/firestore-library.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,8 @@ export class LibrariesService {
 
   /* ----- Create Library --------------------------------------------------------------------------------------------------------------- */
 
-  public createLibrary(name: string, uid: string): Promise<DocumentReference> {
-    return addDoc(this.librariesCollection, { name: name, owner: uid, games: [] });
+  public createLibrary(library: FirestoreLibraryInterface): Promise<DocumentReference> {
+    return addDoc(this.librariesCollection, library);
   }
 
 
