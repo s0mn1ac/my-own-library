@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { changeLanguageLoad } from '../../state/language/language.actions';
 import { changeThemeLoad } from '../../state/theme/theme.actions';
 import { getUserError, getUserLoad, getUserSuccess, updateUser } from '../../state/user/user.actions';
-import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, modifyLibraryError, modifyLibraryLoad, modifyLibrarySuccess, updateLibraries } from '../../state/libraries/libraries.actions';
+import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, modifyLibraryError, modifyLibraryLoad, modifyLibrarySuccess, updateLibraries } from '../../state/libraries/libraries.actions';
 
 /* Interfaces */
 import { UserInterface } from '../interfaces/user.interface';
@@ -37,6 +37,10 @@ export class DispatcherService {
 
   public updateLibraries(libraries: LibraryInterface[]): void {
     this.store.dispatch(updateLibraries({ libraries }));
+  }
+
+  public getLibrariesLoad(uid: string): void {
+    this.store.dispatch(getLibrariesLoad({ uid }));
   }
 
   public createLibraryLoad(): void {

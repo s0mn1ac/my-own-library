@@ -6,7 +6,6 @@ import { LibraryInterface } from '../../shared/interfaces/library.interface';
 import { GameInterface } from '../../shared/interfaces/game.interface';
 
 export enum LibrariesStateEnum {
-  InitLibrariesState = '[Libraries] Init Libraries State',
   UpdateLibraries = '[Libraries] Update Libraries',
   GetLibrariesLoad = '[Libraries] [Load] Get Libraries',
   GetLibrariesSuccess = '[Libraries] [Success] Get Libraries',
@@ -28,14 +27,6 @@ export enum LibrariesStateEnum {
   RemoveGameFromLibraryError = '[Libraries] [Error] Remove Product from Library'
 }
 
-
-/* ----- Init Libraries State ----------------------------------------------------------------------------------------------------------- */
-
-export const initLibrariesState = createAction(
-  LibrariesStateEnum.InitLibrariesState
-);
-
-
 /* ----- Update Libraries --------------------------------------------------------------------------------------------------------------- */
 
 export const updateLibraries = createAction(
@@ -47,7 +38,8 @@ export const updateLibraries = createAction(
 /* ----- Get Libraries ------------------------------------------------------------------------------------------------------------------ */
 
 export const getLibrariesLoad = createAction(
-  LibrariesStateEnum.GetLibrariesLoad
+  LibrariesStateEnum.GetLibrariesLoad,
+  props<{ uid: string }>()
 );
 
 export const getLibrariesSuccess = createAction(

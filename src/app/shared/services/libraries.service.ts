@@ -1,22 +1,12 @@
 /* Angular */
 import { Injectable } from '@angular/core';
-import {
-  addDoc,
-  arrayRemove,
-  arrayUnion,
-  collectionData,
-  deleteDoc,
-  doc,
-  Firestore,
-  updateDoc,
-  where
-} from '@angular/fire/firestore';
+import { addDoc, arrayRemove, arrayUnion, collectionData, deleteDoc, doc, Firestore, updateDoc, where } from '@angular/fire/firestore';
 
 /* Firebase */
 import { collection, CollectionReference, DocumentReference, query, Query } from '@firebase/firestore';
 
 /* RxJs */
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 /* Interfaces */
 import { LibraryInterface } from '../interfaces/library.interface';
@@ -24,7 +14,6 @@ import { GameInterface } from '../interfaces/game.interface';
 
 /* Constants */
 import { LibrariesCollection } from '../constants/collections.constants';
-import { DocumentData } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +34,11 @@ export class LibrariesService {
   public getLibrariesSubscription(uid: string): Observable<LibraryInterface[]> {
     const librariesQuery: Query = query(collection(this.firestore, LibrariesCollection), where('owner', '==', uid));
     return collectionData(librariesQuery, { idField: 'id' }) as Observable<LibraryInterface[]>;
+  }
+
+  public getLibrariesObservable(uid: string): Observable<LibraryInterface[]> {
+    const librariesQuery: Query = query(collection(this.firestore, LibrariesCollection), where('owner', '==', uid));
+    return collectionData(librariesQuery) as Observable<LibraryInterface[]>;
   }
 
 
