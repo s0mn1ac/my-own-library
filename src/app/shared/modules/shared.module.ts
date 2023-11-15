@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 /* Transloco */
 import { TranslocoModule } from '@ngneat/transloco';
@@ -39,7 +40,8 @@ import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/conf
     MatIconModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/conf
     MatIconModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }

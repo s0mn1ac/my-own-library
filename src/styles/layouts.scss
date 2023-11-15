@@ -28,9 +28,23 @@ div.dialog-layout {
   div.dialog-layout__header {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     padding: 1rem;
+
+    h2 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    div.header__actions-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
   }
 
   div.dialog-layout__content {

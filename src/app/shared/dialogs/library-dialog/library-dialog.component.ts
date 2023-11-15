@@ -46,6 +46,8 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
 
   private _form!: UntypedFormGroup;
 
+  private _isLoading: boolean = false;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogInputData: LibraryDialogInputDataInterface,
     private readonly matDialogRef: MatDialogRef<LibraryDialogComponent>,
@@ -55,6 +57,17 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
   ) {
     this.library = this.dialogInputData?.library ?? null;
     this.titleKey = this.library === null ? 'dialogs.library.createLibrary' : 'dialogs.library.modifyLibrary';
+  }
+
+
+  /* ----- Getters & Setters ------------------------------------------------------------------------------------------------------------ */
+
+  get isLoading(): boolean {
+    return this._isLoading;
+  }
+
+  set isLoading(isLoading: boolean) {
+    this._isLoading = isLoading;
   }
 
 
@@ -94,12 +107,15 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.setLoadingState(true);
+
     const uid: string = this.user.uid;
     const library: { name: string } = this.form.value;
 
     this.librariesService.createLibrary(library.name, uid)
       .then((): void => this.matDialogRef.close(LibraryDialogActionEnum.Save))
-      .catch((error: Error) => this.dispatcherService.createLibraryError(error));
+      .catch((error: Error) => this.dispatcherService.createLibraryError(error))
+      .finally((): void => this.setLoadingState(false));
   }
 
   public async onClickModifyLibrary(): Promise<void> {
@@ -108,11 +124,14 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.setLoadingState(true);
+
     const library: { name: string } = this.form.value;
 
     this.librariesService.modifyLibrary(this.library.id, library.name)
       .then((): void => this.matDialogRef.close(LibraryDialogActionEnum.Save))
-      .catch((error: Error) => this.dispatcherService.modifyLibraryError(error));
+      .catch((error: Error) => this.dispatcherService.modifyLibraryError(error))
+      .finally((): void => this.setLoadingState(false));
   }
 
 
@@ -132,6 +151,11 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
     this.form = new FormGroup<LibraryDialogFormInterface>({
       name: new FormControl({ value: this.library?.name ?? null, disabled: false }, [Validators.required])
     });
+  }
+
+  private setLoadingState(isLoading: boolean): void {
+    this.isLoading = isLoading;
+    this.isLoading ? this.form.disable() : this.form.enable();
   }
 
 }

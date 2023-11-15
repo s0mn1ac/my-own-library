@@ -2,6 +2,9 @@
 
   <div class="dialog-layout__header">
     <h2>{{ t(titleKey) }}</h2>
+    <div class="header__actions-container">
+      <mat-spinner [diameter]="24" *ngIf="isLoading"></mat-spinner>
+    </div>
   </div>
 
   <div class="dialog-layout__content">
@@ -15,9 +18,9 @@
   </div>
 
   <div class="dialog-layout__footer">
-    <button mat-raised-button color="primary" (click)="onClickCancel()">{{ t('buttons.cancel') }}</button>
-    <button mat-raised-button color="accent" [disabled]="form.invalid" (click)="onClickCreateLibrary()" *ngIf="library === null">{{ t('buttons.createLibrary') }}</button>
-    <button mat-raised-button color="accent" [disabled]="form.invalid" (click)="onClickModifyLibrary()" *ngIf="library !== null">{{ t('buttons.modifyLibrary') }}</button>
+    <button mat-raised-button color="primary" [disabled]="isLoading" (click)="onClickCancel()">{{ t('buttons.cancel') }}</button>
+    <button mat-raised-button color="accent" [disabled]="form.invalid || isLoading" (click)="onClickCreateLibrary()" *ngIf="library === null">{{ t('buttons.createLibrary') }}</button>
+    <button mat-raised-button color="accent" [disabled]="form.invalid || isLoading" (click)="onClickModifyLibrary()" *ngIf="library !== null">{{ t('buttons.modifyLibrary') }}</button>
   </div>
 
 </form>
