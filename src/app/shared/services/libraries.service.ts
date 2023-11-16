@@ -35,12 +35,10 @@ export class LibrariesService {
   public getLibrariesSubscription(uid: string): Observable<LibraryInterface[]> {
     const librariesQuery: Query = query(collection(this.firestore, LibrariesCollection), where('owner', '==', uid));
     return collectionData(librariesQuery, { idField: 'id' }) as Observable<LibraryInterface[]>;
-    // return from(getDocs(librariesQuery)) as Observable<QuerySnapshot<LibraryInterface>>;
   }
 
   public getLibrariesOnce(uid: string): Observable<QuerySnapshot<LibraryInterface>> {
     const librariesQuery: Query = query(collection(this.firestore, LibrariesCollection), where('owner', '==', uid));
-    // return collectionData(librariesQuery, { idField: 'id' }) as Observable<LibraryInterface[]>;
     return from(getDocs(librariesQuery)) as Observable<QuerySnapshot<LibraryInterface>>;
   }
 
