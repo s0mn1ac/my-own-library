@@ -1,0 +1,9 @@
+.mat-mdc-select-panel-above div.mat-mdc-select-panel {
+  border-radius: 10px !important;
+  margin-bottom: 0.5rem;
+}
+
+.cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
+  border-radius: 10px !important;
+  margin-top: 0.5rem;
+}
