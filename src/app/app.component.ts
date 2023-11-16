@@ -91,7 +91,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.isLibrariesSubscriptionInitialized = true;
 
-    this.librariesService.getLibraries(this.user.uid)
+    this.librariesService.getLibrariesSubscription(this.user.uid)
       .pipe(takeUntil(this.destroy$))
       .subscribe((libraries: LibraryInterface[]): void => this.onChangeLibraries(libraries));
   }
