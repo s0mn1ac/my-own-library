@@ -12,9 +12,11 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectLibraries } from '../../state/libraries/libraries.selectors';
 
+/* Components */
+import { LibraryDialogComponent } from '../../shared/dialogs/library-dialog/library-dialog.component';
+
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
-import { LibraryDialogComponent } from '../../shared/dialogs/library-dialog/library-dialog.component';
 import { LibraryDialogOutputDataInterface } from '../../shared/dialogs/library-dialog/interfaces/library-dialog-output-data.interface';
 
 @Component({

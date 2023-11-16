@@ -13,6 +13,7 @@ import { LibrariesService } from '../../shared/services/libraries.service';
 
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
+import { QuerySnapshot, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 
 @Injectable()
 export class LibrariesEffects {
@@ -20,22 +21,31 @@ export class LibrariesEffects {
 
   /* ----- Get Libraries ---------------------------------------------------------------------------------------------------------------- */
 
-  getLibrariesLoad$: CreateEffectMetadata = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(getLibrariesLoad),
-      mergeMap(({ uid }) => this.librariesService.getLibrariesObservable(uid)
-        .pipe(
-          map((libraries: LibraryInterface[]) => getLibrariesSuccess({libraries})),
-          catchError((error: Error) => of(getLibrariesError({ error })))
-        )
-      )
-    );
-  });
+  // getLibrariesLoad$: CreateEffectMetadata = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(getLibrariesLoad),
+  //     mergeMap(({ uid }) => this.librariesService.getLibraries(uid)
+  //       .pipe(
+  //         map((querySnapshot: QuerySnapshot<LibraryInterface>) => getLibrariesSuccess({ libraries: this.mapLibraries(querySnapshot) })),
+  //         catchError((error: Error) => of(getLibrariesError({ error })))
+  //       )
+  //     )
+  //   );
+  // });
 
 
   constructor(
     private readonly actions$: Actions,
     private readonly librariesService: LibrariesService
   ) { }
+
+
+  /* ----- Mappers ---------------------------------------------------------------------------------------------------------------------- */
+
+  private mapLibraries(querySnapshot: QuerySnapshot<LibraryInterface>): LibraryInterface[] {
+    const libraries: LibraryInterface[] = [];
+    querySnapshot.forEach((doc: QueryDocumentSnapshot<LibraryInterface>) => libraries.push(doc.data()));
+    return libraries;
+  }
 
 }
