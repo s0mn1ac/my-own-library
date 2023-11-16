@@ -1,0 +1,72 @@
+<div class="dialog-layout configuration-dialog-layout" *transloco="let t">
+
+  <section class="dialog-layout__header">
+    <h1>{{ t('dialogs.configuration.title') }}</h1>
+    <div class="header__actions-container">
+      <button mat-icon-button color="primary" *ngIf="!isLoading" (click)="onClickClose()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-spinner [diameter]="24" *ngIf="isLoading"></mat-spinner>
+    </div>
+  </section>
+
+  <section class="dialog-layout__content configuration-dialog-layout__content">
+
+    <div class="content__block">
+
+      <h2>{{ t('dialogs.configuration.account') }}</h2>
+
+      <div class="block__account-container">
+
+        <div class="account-container__profile-picture-container">
+          <img [src]="user?.photoURL" [alt]="t('dialogs.configuration.profilePicture')" *ngIf="user?.photoURL !== null">
+          <mat-icon *ngIf="user?.photoURL === null">person</mat-icon>
+        </div>
+
+        <h3>{{ user?.displayName }}</h3>
+
+        <span>{{ user?.email }}</span>
+
+      </div>
+
+      <div class="block__buttons-container">
+
+        <button mat-raised-button color="warn" (click)="onClickSignOut()">{{ t('buttons.signOut') }}</button>
+
+      </div>
+
+    </div>
+
+    <div class="content__block">
+
+      <h2>{{ t('dialogs.configuration.languages.title') }}</h2>
+
+      <mat-form-field>
+        <mat-label>{{ t('dialogs.configuration.languages.title') }}</mat-label>
+        <mat-select [(value)]="languageSelected" (selectionChange)="onClickChangeLanguage(languageSelected)">
+          <mat-option *ngFor="let language of languages" [value]="language">
+            {{ t('dialogs.configuration.languages.' + language) }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div class="content__block">
+
+      <h2>{{ t('dialogs.configuration.themes.title') }}</h2>
+
+      <mat-form-field>
+        <mat-label>{{ t('dialogs.configuration.themes.title') }}</mat-label>
+        <mat-select [(value)]="themeSelected" (selectionChange)="onClickChangeTheme(themeSelected)">
+          <mat-option *ngFor="let theme of themes" [value]="theme">
+            {{ t('dialogs.configuration.themes.' + theme) }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+  </section>
+
+</div>

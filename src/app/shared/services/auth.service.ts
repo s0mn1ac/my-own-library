@@ -1,6 +1,6 @@
 /* Angular */
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, User } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from '@angular/fire/auth';
 
 /* Firebase */
 import { UserCredential, GoogleAuthProvider } from '@firebase/auth';
@@ -50,6 +50,27 @@ export class AuthService {
 
   public signOut(): Promise<void> {
     return signOut(this.auth);
+  }
+
+
+  /* ----- Update profile --------------------------------------------------------------------------------------------------------------- */
+
+  public updateDisplayName(displayName: string): Promise<void> | undefined {
+
+    if (this.auth.currentUser === null) {
+      return;
+    }
+
+    return updateProfile(this.auth.currentUser, { displayName: displayName });
+  }
+
+  public updatePhotoURL(photoURL: string): Promise<void> | undefined {
+
+    if (this.auth.currentUser === null) {
+      return;
+    }
+
+    return updateProfile(this.auth.currentUser, { photoURL: photoURL });
   }
 
 

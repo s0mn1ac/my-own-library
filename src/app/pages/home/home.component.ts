@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 /* RxJs */
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, take, takeUntil } from 'rxjs';
 
 /* NgRx */
 import { Store } from '@ngrx/store';
@@ -18,6 +18,9 @@ import { LibraryDialogComponent } from '../../shared/dialogs/library-dialog/libr
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
 import { LibraryDialogOutputDataInterface } from '../../shared/dialogs/library-dialog/interfaces/library-dialog-output-data.interface';
+import { LibraryDialogInputDataInterface } from '../../shared/dialogs/library-dialog/interfaces/library-dialog-input-data.interface';
+import { ConfigurationDialogComponent } from '../../shared/dialogs/configuration-dialog/configuration-dialog.component';
+import { ConfigurationDialogOutputDataInterface } from '../../shared/dialogs/configuration-dialog/interfaces/configuration-dialog-output-data.interface';
 
 @Component({
   selector: 'app-home',
@@ -53,8 +56,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
-  public onClickGoToConfigurationPage(): void {
-    this.router.navigate(['/configuration']).then();
+  public onClickShowConfigurationOptions(): void {
+
+    const matDialogRef: MatDialogRef<ConfigurationDialogComponent> = this.matDialog.open(
+      ConfigurationDialogComponent,
+      {
+        disableClose: true,
+        width: '500px'
+      } as MatDialogConfig
+    );
+
+    matDialogRef.afterClosed()
+      .pipe(take(1))
+      .subscribe((dialogOutputData: ConfigurationDialogOutputDataInterface) => console.log(dialogOutputData));
   }
 
   public onClickAddLibrary(): void {
@@ -67,7 +81,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       } as MatDialogConfig
     );
 
-    matDialogRef.afterClosed().subscribe((dialogOutputData: LibraryDialogOutputDataInterface) => console.log(dialogOutputData));
+    matDialogRef.afterClosed()
+      .pipe(take(1))
+      .subscribe((dialogOutputData: LibraryDialogOutputDataInterface) => console.log(dialogOutputData));
   }
 
 

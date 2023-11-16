@@ -1,13 +1,13 @@
 <form class="dialog-layout library-dialog-layout" [formGroup]="form" *transloco="let t">
 
-  <div class="dialog-layout__header">
-    <h2>{{ t(titleKey) }}</h2>
+  <section class="dialog-layout__header">
+    <h1>{{ t(titleKey) }}</h1>
     <div class="header__actions-container">
       <mat-spinner [diameter]="24" *ngIf="isLoading"></mat-spinner>
     </div>
-  </div>
+  </section>
 
-  <div class="dialog-layout__content">
+  <section class="dialog-layout__content">
     <mat-form-field>
       <mat-label>{{ t('dialogs.library.form.name.title') }}</mat-label>
       <input matInput [formControlName]="LibraryFormEnum.Name" [placeholder]="t('dialogs.library.form.name.placeholder')">
@@ -15,12 +15,12 @@
         <span>{{ t('forms.mandatoryField') }}</span>
       </mat-error>
     </mat-form-field>
-  </div>
+  </section>
 
-  <div class="dialog-layout__footer">
+  <section class="dialog-layout__footer">
     <button mat-raised-button color="primary" [disabled]="isLoading" (click)="onClickCancel()">{{ t('buttons.cancel') }}</button>
     <button mat-raised-button color="accent" [disabled]="form.invalid || isLoading" (click)="onClickCreateLibrary()" *ngIf="library === null">{{ t('buttons.createLibrary') }}</button>
     <button mat-raised-button color="accent" [disabled]="form.invalid || isLoading" (click)="onClickModifyLibrary()" *ngIf="library !== null">{{ t('buttons.modifyLibrary') }}</button>
-  </div>
+  </section>
 
 </form>

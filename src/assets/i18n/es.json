@@ -23,7 +23,6 @@
   },
 
   "titles": {
-    "configuration": "Configuración",
     "createAccount": "Crear cuenta",
     "home": "Inicio",
     "signIn": "Iniciar sesión"
@@ -69,20 +68,6 @@
     "title": "Inicio"
   },
 
-  "configuration": {
-    "title": "Configuración",
-    "languages": {
-      "title": "Idioma",
-      "es": "Español",
-      "en": "Inglés"
-    },
-    "themes": {
-      "title": "Tema",
-      "light": "Claro",
-      "dark": "Oscuro"
-    }
-  },
-
   "game": {
     "boxCover": "Carátula"
   },
@@ -96,6 +81,21 @@
           "placeholder": "Nombre",
           "title": "Nombre"
         }
+      }
+    },
+    "configuration": {
+      "title": "Configuración",
+      "account": "Cuenta",
+      "profilePicture": "Imagen de perfil",
+      "languages": {
+        "title": "Idioma",
+        "es": "Español",
+        "en": "Inglés"
+      },
+      "themes": {
+        "title": "Tema",
+        "light": "Claro",
+        "dark": "Oscuro"
       }
     }
   },

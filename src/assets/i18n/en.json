@@ -23,7 +23,6 @@
   },
 
   "titles": {
-    "configuration": "Configuration",
     "createAccount": "Create account",
     "home": "Home",
     "signIn": "Sign in"
@@ -69,20 +68,6 @@
     "title": "Home"
   },
 
-  "configuration": {
-    "title": "Configuration",
-    "languages": {
-      "title": "Language",
-      "es": "Spanish",
-      "en": "English"
-    },
-    "themes": {
-      "title": "Theme",
-      "light": "Light",
-      "dark": "Dark"
-    }
-  },
-
   "game": {
     "boxCover": "Box cover"
   },
@@ -96,6 +81,21 @@
           "placeholder": "Name",
           "title": "Name"
         }
+      }
+    },
+    "configuration": {
+      "title": "Configuration",
+      "account": "Account",
+      "profilePicture": "Profile picture",
+      "languages": {
+        "title": "Language",
+        "es": "Spanish",
+        "en": "English"
+      },
+      "themes": {
+        "title": "Theme",
+        "light": "Light",
+        "dark": "Dark"
       }
     }
   }

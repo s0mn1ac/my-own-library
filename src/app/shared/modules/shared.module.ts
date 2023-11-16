@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 
 /* Transloco */
 import { TranslocoModule } from '@ngneat/transloco';
@@ -21,6 +22,7 @@ import { LibraryComponent } from '../components/library/library.component';
 import { GameComponent } from '../components/game/game.component';
 import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog.component';
 import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
+import { ConfigurationDialogComponent } from '../dialogs/configuration-dialog/configuration-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/conf
     LibraryComponent,
     GameComponent,
     LibraryDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ConfigurationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +44,8 @@ import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/conf
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   exports: [
     CommonModule,
@@ -54,12 +58,14 @@ import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/conf
     GameComponent,
     LibraryDialogComponent,
     ConfirmationDialogComponent,
+    ConfigurationDialogComponent,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ]
 })
 export class SharedModule { }

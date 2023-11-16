@@ -25,7 +25,7 @@ div.dialog-layout {
   display: flex;
   flex-direction: column;
 
-  div.dialog-layout__header {
+  section.dialog-layout__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -33,7 +33,7 @@ div.dialog-layout {
     gap: 1rem;
     padding: 1rem;
 
-    h2 {
+    h1 {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -47,14 +47,14 @@ div.dialog-layout {
     }
   }
 
-  div.dialog-layout__content {
+  section.dialog-layout__content {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
   }
 
-  div.dialog-layout__footer {
+  section.dialog-layout__footer {
     display: flex;
     flex-direction: row;
     justify-content: center;

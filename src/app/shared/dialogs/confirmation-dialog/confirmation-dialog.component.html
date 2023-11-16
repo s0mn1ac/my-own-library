@@ -1,16 +1,16 @@
 <div class="dialog-layout confirmation-dialog-layout" *transloco="let t">
 
-  <div class="dialog-layout__header">
-    <h2>{{ t(titleKey) }}</h2>
-  </div>
+  <section class="dialog-layout__header">
+    <h1>{{ t(titleKey) }}</h1>
+  </section>
 
-  <div class="dialog-layout__content">
+  <section class="dialog-layout__content">
     <span>{{ t(messageKey) }}</span>
-  </div>
+  </section>
 
-  <div class="dialog-layout__footer">
+  <section class="dialog-layout__footer">
     <button mat-raised-button color="primary" (click)="onClickReject()">{{ t('buttons.reject') }}</button>
     <button mat-raised-button color="accent" (click)="onClickConfirm()">{{ t('buttons.confirm') }}</button>
-  </div>
+  </section>
 
 </div>
