@@ -10,7 +10,7 @@ div.configuration-dialog-layout section.configuration-dialog-layout__content {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      border-radius: 10px;
+      border-radius: var(--my-border-radius-md);
       padding: 1rem;
       background-color: var(--color-slate-100);
 
@@ -38,7 +38,7 @@ div.configuration-dialog-layout section.configuration-dialog-layout__content {
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      border-radius: 10px;
+      border-radius: var(--my-border-radius-md);
       padding: 1rem;
       background-color: var(--color-slate-100);
     }

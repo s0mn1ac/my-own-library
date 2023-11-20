@@ -1,7 +1,7 @@
 div.game-layout {
   width: 150px;
   height: 200px;
-  border-radius: 10px;
+  border-radius: var(--my-border-radius-sm);
   overflow: hidden;
 
   section.game-layout__cover-section {

@@ -1,5 +1,5 @@
 p-dynamicdialog div.p-dialog-content {
-  border-radius: 10px;
+  border-radius: var(--my-border-radius-md);
   padding: 0;
 
   form.dialog-layout,

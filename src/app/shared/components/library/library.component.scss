@@ -34,7 +34,7 @@ div.library-layout {
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: var(--my-border-radius-md);
     background-color: var(--color-slate-200);
     overflow-x: auto;
     overflow-y: hidden;
