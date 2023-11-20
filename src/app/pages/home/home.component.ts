@@ -2,9 +2,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-/* Material */
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-
 /* RxJs */
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 
@@ -12,14 +9,16 @@ import { Observable, Subject, take, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectLibraries } from '../../state/libraries/libraries.selectors';
 
+/* Services */
+import { ModalService } from '../../shared/services/modal.service';
+
 /* Components */
+import { ConfigurationDialogComponent } from '../../shared/dialogs/configuration-dialog/configuration-dialog.component';
 import { LibraryDialogComponent } from '../../shared/dialogs/library-dialog/library-dialog.component';
 
 /* Interfaces */
 import { LibraryInterface } from '../../shared/interfaces/library.interface';
 import { LibraryDialogOutputDataInterface } from '../../shared/dialogs/library-dialog/interfaces/library-dialog-output-data.interface';
-import { LibraryDialogInputDataInterface } from '../../shared/dialogs/library-dialog/interfaces/library-dialog-input-data.interface';
-import { ConfigurationDialogComponent } from '../../shared/dialogs/configuration-dialog/configuration-dialog.component';
 import { ConfigurationDialogOutputDataInterface } from '../../shared/dialogs/configuration-dialog/interfaces/configuration-dialog-output-data.interface';
 
 @Component({
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public libraries!: LibraryInterface[];
 
   constructor(
-    private readonly matDialog: MatDialog,
+    private readonly modalService: ModalService,
     private readonly router: Router,
     private readonly store: Store
   ) { }
@@ -58,32 +57,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public onClickShowConfigurationOptions(): void {
 
-    const matDialogRef: MatDialogRef<ConfigurationDialogComponent> = this.matDialog.open(
-      ConfigurationDialogComponent,
-      {
-        disableClose: true,
-        width: '500px'
-      } as MatDialogConfig
-    );
-
-    matDialogRef.afterClosed()
+    this.modalService.showCustomModal(ConfigurationDialogComponent).onClose
       .pipe(take(1))
-      .subscribe((dialogOutputData: ConfigurationDialogOutputDataInterface) => console.log(dialogOutputData));
+      .subscribe((dialogOutputData: ConfigurationDialogOutputDataInterface | undefined) => console.log(dialogOutputData));
   }
 
   public onClickAddLibrary(): void {
 
-    const matDialogRef: MatDialogRef<LibraryDialogComponent> = this.matDialog.open(
-      LibraryDialogComponent,
-      {
-        disableClose: true,
-        width: '500px'
-      } as MatDialogConfig
-    );
-
-    matDialogRef.afterClosed()
+    this.modalService.showCustomModal(LibraryDialogComponent).onClose
       .pipe(take(1))
-      .subscribe((dialogOutputData: LibraryDialogOutputDataInterface) => console.log(dialogOutputData));
+      .subscribe((dialogOutputData: LibraryDialogOutputDataInterface | undefined) => console.log(dialogOutputData));
   }
 
 

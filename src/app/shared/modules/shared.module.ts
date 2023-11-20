@@ -3,14 +3,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-/* Material */
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
+/* PrimeNG */
+import { PrimeNGModule } from './primeng.module';
 
 /* Transloco */
 import { TranslocoModule } from '@ngneat/transloco';
@@ -19,6 +13,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { LoaderComponent } from '../components/loader/loader.component';
 import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 import { LibraryComponent } from '../components/library/library.component';
+import { LibrarySkeletonComponent } from '../components/library/skeletons/library-skeleton/library-skeleton.component';
 import { GameComponent } from '../components/game/game.component';
 import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog.component';
 import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
@@ -29,6 +24,7 @@ import { ConfigurationDialogComponent } from '../dialogs/configuration-dialog/co
     LoaderComponent,
     NavigationBarComponent,
     LibraryComponent,
+    LibrarySkeletonComponent,
     GameComponent,
     LibraryDialogComponent,
     ConfirmationDialogComponent,
@@ -39,33 +35,22 @@ import { ConfigurationDialogComponent } from '../dialogs/configuration-dialog/co
     TranslocoModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatSelectModule
+    PrimeNGModule
   ],
   exports: [
     CommonModule,
     TranslocoModule,
     FormsModule,
     ReactiveFormsModule,
+    PrimeNGModule,
     LoaderComponent,
     NavigationBarComponent,
     LibraryComponent,
+    LibrarySkeletonComponent,
     GameComponent,
     LibraryDialogComponent,
     ConfirmationDialogComponent,
-    ConfigurationDialogComponent,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatSelectModule
+    ConfigurationDialogComponent
   ]
 })
 export class SharedModule { }

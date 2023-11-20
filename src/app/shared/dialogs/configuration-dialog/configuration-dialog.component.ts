@@ -1,28 +1,32 @@
 /* Angular */
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-/* Material */
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+/* PrimeNG */
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { SelectButtonOptionClickEvent } from 'primeng/selectbutton';
+
+/* RxJs */
+import { Observable, Subject, takeUntil } from 'rxjs';
+
+/* NgRx */
+import { Store } from '@ngrx/store';
+import { selectLanguage } from '../../../state/language/language.selectors';
+import { selectTheme } from '../../../state/theme/theme.selectors';
+import { selectUser } from '../../../state/user/user.selectors';
 
 /* Services */
 import { AuthService } from '../../services/auth.service';
+import { DispatcherService } from '../../services/dispatcher.service';
 
 /* Interfaces */
-import { ConfigurationDialogInputDataInterface } from './interfaces/configuration-dialog-input-data.interface';
 import { ConfigurationDialogOutputDataInterface } from './interfaces/configuration-dialog-output-data.interface';
+import { UserInterface } from '../../interfaces/user.interface';
 
 /* Enums */
 import { ConfigurationDialogActionEnum } from './enums/configuration-dialog-action.enum';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { UserInterface } from '../../interfaces/user.interface';
-import { selectUser } from '../../../state/user/user.selectors';
-import { Store } from '@ngrx/store';
 import { ThemeEnum } from '../../enums/theme.enum';
-import { selectTheme } from '../../../state/theme/theme.selectors';
 import { LanguageEnum } from '../../enums/language.enum';
-import { selectLanguage } from '../../../state/language/language.selectors';
-import { DispatcherService } from '../../services/dispatcher.service';
 
 @Component({
   selector: 'app-library-dialog',
@@ -47,10 +51,9 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
   private _isLoading: boolean = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dialogInputData: ConfigurationDialogInputDataInterface,
+    private readonly dynamicDyalogRef: DynamicDialogRef,
     private readonly authService: AuthService,
     private readonly dispatcherService: DispatcherService,
-    private readonly matDialogRef: MatDialogRef<ConfigurationDialogComponent>,
     private readonly router: Router,
     private readonly store: Store
   ) { }
@@ -100,7 +103,7 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
   public onClickClose(): void {
-    this.matDialogRef.close({ actionPerformed: ConfigurationDialogActionEnum.Close } as ConfigurationDialogOutputDataInterface);
+    this.dynamicDyalogRef.close({ actionPerformed: ConfigurationDialogActionEnum.Close } as ConfigurationDialogOutputDataInterface);
   }
 
   public onClickSignOut(): void {
@@ -114,18 +117,21 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
     this.authService.signOut()
       .then((): void => {
         this.router.navigate(['/sign-in']).then();
-        this.matDialogRef.close(ConfigurationDialogActionEnum.Close);
+        this.dynamicDyalogRef.close(ConfigurationDialogActionEnum.Close);
       })
       .catch((error: Error) => console.error(error))
       .finally((): boolean => this.isLoading = false);
   }
 
-  public onClickChangeLanguage(language: LanguageEnum): void {
-    this.dispatcherService.changeLanguage(language);
+
+  /* ----- On change methods ------------------------------------------------------------------------------------------------------------ */
+
+  public onChangeLanguage(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
+    this.dispatcherService.changeLanguage(selectButtonOptionClickEvent.option as LanguageEnum);
   }
 
-  public onClickChangeTheme(theme: ThemeEnum): void {
-    this.dispatcherService.changeTheme(theme);
+  public onChangeTheme(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
+    this.dispatcherService.changeTheme(selectButtonOptionClickEvent.option as ThemeEnum);
   }
 
 }

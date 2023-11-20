@@ -101,7 +101,7 @@ export const deleteLibrarySuccess = createAction(
 
 export const deleteLibraryError = createAction(
   LibrariesStateEnum.DeleteLibraryError,
-  props<{ error: Error }>()
+  props<{ id: string, error: Error }>()
 );
 
 

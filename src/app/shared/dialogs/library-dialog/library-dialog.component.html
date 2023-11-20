@@ -1,26 +1,54 @@
 <form class="dialog-layout library-dialog-layout" [formGroup]="form" *transloco="let t">
 
   <section class="dialog-layout__header">
+
     <h1>{{ t(titleKey) }}</h1>
+
     <div class="header__actions-container">
-      <mat-spinner [diameter]="24" *ngIf="isLoading"></mat-spinner>
+
+      <p-progressSpinner class="my-progress-spinner-sm" strokeWidth="4" *ngIf="isLoading"></p-progressSpinner>
+
     </div>
+
   </section>
 
   <section class="dialog-layout__content">
-    <mat-form-field>
-      <mat-label>{{ t('dialogs.library.form.name.title') }}</mat-label>
-      <input matInput [formControlName]="LibraryFormEnum.Name" [placeholder]="t('dialogs.library.form.name.placeholder')">
-      <mat-error *ngIf="form.controls[LibraryFormEnum.Name].errors?.['required']">
-        <span>{{ t('forms.mandatoryField') }}</span>
-      </mat-error>
-    </mat-form-field>
+
+    <div class="my-form-item">
+      <span class="p-float-label">
+        <input type="text" pInputText pAutoFocus [autofocus]="true" [formControlName]="LibraryDialogFormEnum.Name" />
+        <label>{{ t('dialogs.library.form.name.title') }}</label>
+      </span>
+      <small *ngIf="checkErrors(ErrorEnum.Required)">{{ t('forms.mandatoryField') }}</small>
+    </div>
+
   </section>
 
   <section class="dialog-layout__footer">
-    <button mat-raised-button color="primary" [disabled]="isLoading" (click)="onClickCancel()">{{ t('buttons.cancel') }}</button>
-    <button mat-raised-button color="accent" [disabled]="form.invalid || isLoading" (click)="onClickCreateLibrary()" *ngIf="library === null">{{ t('buttons.createLibrary') }}</button>
-    <button mat-raised-button color="accent" [disabled]="form.invalid || isLoading" (click)="onClickModifyLibrary()" *ngIf="library !== null">{{ t('buttons.modifyLibrary') }}</button>
+
+    <p-button
+      [label]="t('buttons.cancel')"
+      severity="secondary"
+      [disabled]="isLoading"
+      (onClick)="onClickCancel()">
+    </p-button>
+
+    <p-button
+      [label]="t('buttons.createLibrary')"
+      severity="primary"
+      [disabled]="form.invalid || isLoading"
+      (onClick)="onClickCreateLibrary()"
+      *ngIf="library === null">
+    </p-button>
+
+    <p-button
+      [label]="t('buttons.modifyLibrary')"
+      severity="primary"
+      [disabled]="form.invalid || isLoading"
+      (onClick)="onClickModifyLibrary()"
+      *ngIf="library !== null">
+    </p-button>
+
   </section>
 
 </form>

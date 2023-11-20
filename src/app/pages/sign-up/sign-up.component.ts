@@ -12,7 +12,7 @@ import { SignUpFormInterface } from './interfaces/sign-up-form.interface';
 
 /* Enums */
 import { SignUpFormEnum } from './enums/sign-up-form.enum';
-import { LoaderTypeEnum } from '../../shared/enums/loader-type.enum';
+import { ErrorEnum } from '../../shared/enums/error.enum';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,11 +22,11 @@ import { LoaderTypeEnum } from '../../shared/enums/loader-type.enum';
 export class SignUpComponent implements OnInit {
 
   protected readonly SignUpFormEnum: typeof SignUpFormEnum = SignUpFormEnum;
-  protected readonly LoaderTypeEnum: typeof LoaderTypeEnum = LoaderTypeEnum;
+  protected readonly ErrorEnum: typeof ErrorEnum = ErrorEnum;
 
-  private _signUpForm!: UntypedFormGroup;
+  private _form!: UntypedFormGroup;
 
-  private _isSigningUp: boolean = false;
+  private _isLoading: boolean = false;
 
   constructor(
     private readonly authService: AuthService,
@@ -43,42 +43,49 @@ export class SignUpComponent implements OnInit {
 
   /* ----- Getters & Setters ------------------------------------------------------------------------------------------------------------ */
 
-  get signUpForm(): UntypedFormGroup {
-    return this._signUpForm;
+  get form(): UntypedFormGroup {
+    return this._form;
   }
 
-  set signUpForm(signUpForm: UntypedFormGroup) {
-    this._signUpForm = signUpForm;
+  set form(form: UntypedFormGroup) {
+    this._form = form;
   }
 
-  get isSigningUp(): boolean {
-    return this._isSigningUp;
+  get isLoading(): boolean {
+    return this._isLoading;
   }
 
-  set isSigningUp(isSigningUp: boolean) {
-    this._isSigningUp = isSigningUp;
+  set isLoading(isLoading: boolean) {
+    this._isLoading = isLoading;
   }
 
 
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
-  public createUserWithEmailAndPassword(): void {
-    if (this.isSigningUp) {
+  public onClickSignUpWithEmailAndPassword(): void {
+    if (this.isLoading) {
       return;
     }
-    this.isSigningUp = true;
-    const signUp: SignUpInterface = this.signUpForm.value;
+    this.isLoading = true;
+    const signUp: SignUpInterface = this.form.value;
     this.authService.createUserWithEmailAndPassword(signUp.email, signUp.password)
       .then(() => this.router.navigate(['/home']).then())
       .catch((error: Error) => console.error(error))
-      .finally((): boolean => this.isSigningUp = false);
+      .finally((): boolean => this.isLoading = false);
+  }
+
+
+  /* ----- Other public methods --------------------------------------------------------------------------------------------------------- */
+
+  public checkErrors(name: SignUpFormEnum, error: ErrorEnum): boolean {
+    return this.form.controls[name].errors?.[error] && this.form.controls[name].dirty;
   }
 
 
   /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
 
   private initForm(): void {
-    this.signUpForm = new FormGroup<SignUpFormInterface>({
+    this.form = new FormGroup<SignUpFormInterface>({
       email: new FormControl({ value: null, disabled: false }, [Validators.required]),
       name: new FormControl({ value: null, disabled: false }, [Validators.required]),
       password: new FormControl({ value: null, disabled: false }, [Validators.required])

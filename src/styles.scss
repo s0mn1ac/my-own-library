@@ -1,12 +1,16 @@
+/* PrimeNG */
+@import "primeicons/primeicons.css";
+
+/* Custom */
 @import "styles/buttons";
 @import "styles/colors";
 @import "styles/dialogs";
+@import "styles/forms";
 @import "styles/headings";
-@import "styles/inputs";
 @import "styles/layouts";
 @import "styles/mixins";
-@import "styles/selects";
-@import "styles/themes";
+@import "styles/progress-spinners";
+@import "styles/variables";
 
 * {
   box-sizing: border-box;
@@ -23,5 +27,17 @@ html {
     margin: 0;
     padding: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    &.light {
+      --my-background-color-low: var(--my-background-color-low-light);
+      --my-background-color-medium: var(--my-background-color-medium-light);
+      --my-background-color-high: var(--my-background-color-high-light);
+    }
+
+    &.dark {
+      --my-background-color-low: var(--my-background-color-low-dark);
+      --my-background-color-medium: var(--my-background-color-medium-dark);
+      --my-background-color-high: var(--my-background-color-high-dark);
+    }
   }
 }

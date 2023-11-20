@@ -97,7 +97,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private onChangeLibraries(libraries: LibraryInterface[]): void {
-    this.libraries = libraries;
+    this.libraries = libraries.map((libraryToMap: LibraryInterface): LibraryInterface => ({ ...libraryToMap, isLoading: false }));
     this.dispatcherService.updateLibraries(this.libraries);
   }
 

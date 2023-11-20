@@ -53,18 +53,25 @@ export const librariesReducer: ActionReducer<LibrariesStateInterface, Action> = 
     ...state,
     isLoading: false
   })),
-  on(deleteLibraryLoad, (state): LibrariesStateInterface => ({
+  on(deleteLibraryLoad, (state, { id }): LibrariesStateInterface => ({
     ...state,
-    isLoading: true
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === id
+        ? ({ ...libraryToMap, isLoading: true })
+        : libraryToMap)
   })),
   on(deleteLibrarySuccess, (state, { id }): LibrariesStateInterface => ({
     ...state,
-    libraries: [...state.libraries]
-      .filter((libraryToFilter: LibraryInterface) => libraryToFilter.id !== id),
-    isLoading: false
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === id
+        ? ({ ...libraryToMap, isLoading: false })
+        : libraryToMap)
   })),
-  on(deleteLibraryError, (state, { error }): LibrariesStateInterface => ({
+  on(deleteLibraryError, (state, { id, error }): LibrariesStateInterface => ({
     ...state,
-    isLoading: false
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === id
+        ? ({ ...libraryToMap, isLoading: false })
+        : libraryToMap)
   }))
 );

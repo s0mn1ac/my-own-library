@@ -2,7 +2,7 @@
 
   <app-navigation-bar
     [title]="t('home.title')"
-    rightActionIcon="settings"
+    rightActionIcon="pi pi-cog"
     (rightActionEvent)="onClickShowConfigurationOptions()">
   </app-navigation-bar>
 
@@ -10,9 +10,7 @@
 
     <app-library [library]="library" *ngFor="let library of libraries">{{ library.name }}</app-library>
 
-    <button mat-fab color="accent" class="content__fab-button" (click)="onClickAddLibrary()">
-      <mat-icon>add</mat-icon>
-    </button>
+    <p-button class="my-fab-button" icon="pi pi-plus" [rounded]="true" (onClick)="onClickAddLibrary()"></p-button>
 
   </section>
 

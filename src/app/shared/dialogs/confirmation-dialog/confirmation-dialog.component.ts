@@ -1,11 +1,10 @@
 /* Angular */
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 
-/* Material */
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+/* PrimeNG */
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 /* Interfaces */
-import { ConfirmationDialogInputDataInterface } from './interfaces/confirmation-dialog-input-data.interface';
 import { ConfirmationDialogOutputDataInterface } from './interfaces/confirmation-dialog-output-data.interface';
 
 /* Enums */
@@ -22,22 +21,22 @@ export class ConfirmationDialogComponent {
   public messageKey!: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dialogInputData: ConfirmationDialogInputDataInterface,
-    private readonly matDialogRef: MatDialogRef<ConfirmationDialogComponent>
+    private readonly dynamicDyalogConfig: DynamicDialogConfig,
+    private readonly dynamicDyalogRef: DynamicDialogRef,
   ) {
-    this.titleKey = this.dialogInputData?.titleKey;
-    this.messageKey = this.dialogInputData?.messageKey;
+    this.titleKey = this.dynamicDyalogConfig.data.titleKey;
+    this.messageKey = this.dynamicDyalogConfig.data.messageKey;
   }
 
 
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
   public onClickReject(): void {
-    this.matDialogRef.close({ actionPerformed: ConfirmationDialogActionEnum.Reject } as ConfirmationDialogOutputDataInterface);
+    this.dynamicDyalogRef.close({ actionPerformed: ConfirmationDialogActionEnum.Reject } as ConfirmationDialogOutputDataInterface);
   }
 
   public onClickConfirm(): void {
-    this.matDialogRef.close({ actionPerformed: ConfirmationDialogActionEnum.Confirm } as ConfirmationDialogOutputDataInterface);
+    this.dynamicDyalogRef.close({ actionPerformed: ConfirmationDialogActionEnum.Confirm } as ConfirmationDialogOutputDataInterface);
   }
 
 }

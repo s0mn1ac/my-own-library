@@ -32,21 +32,21 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-    imports: [
-        AppRoutingModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        CommonModule,
-        FormsModule,
-        HttpClientModule,
-        NgRxModule,
-        ReactiveFormsModule,
-        TranslocoRootModule,
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideFirestore(() => getFirestore()),
-        provideAuth(() => getAuth()),
-        SharedModule
-    ],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    NgRxModule,
+    ReactiveFormsModule,
+    TranslocoRootModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    SharedModule
+  ],
   providers: [
     AuthService,
     {

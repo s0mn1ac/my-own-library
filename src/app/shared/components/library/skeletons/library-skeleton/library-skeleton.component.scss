@@ -1,22 +1,15 @@
-div.library-layout {
+div.library-skeleton-layout {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
-  section.library-layout__header-section {
+  section.library-skeleton-layout__header-section {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
     padding-left: 0.5rem;
-    min-height: 48px;
-
-    h2 {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
 
     div.header-sections__actions-container {
       display: flex;
@@ -27,17 +20,14 @@ div.library-layout {
     }
   }
 
-  section.library-layout__content-section {
+  section.library-skeleton-layout__content-section {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    border-radius: 10px;
-    background-color: var(--color-slate-200);
-    overflow-x: auto;
-    overflow-y: hidden;
-    min-height: 232px;
+
+    p-skeleton {
+      flex: 1;
+    }
   }
 }

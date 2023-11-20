@@ -9,8 +9,19 @@
   </section>
 
   <section class="dialog-layout__footer">
-    <button mat-raised-button color="primary" (click)="onClickReject()">{{ t('buttons.reject') }}</button>
-    <button mat-raised-button color="accent" (click)="onClickConfirm()">{{ t('buttons.confirm') }}</button>
+
+    <p-button
+      [label]="t('buttons.reject')"
+      severity="secondary"
+      (onClick)="onClickReject()">
+    </p-button>
+
+    <p-button
+      [label]="t('buttons.confirm')"
+      severity="primary"
+      (onClick)="onClickConfirm()">
+    </p-button>
+
   </section>
 
 </div>

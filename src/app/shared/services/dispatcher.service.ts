@@ -75,8 +75,8 @@ export class DispatcherService {
     this.store.dispatch(deleteLibrarySuccess({ id }));
   }
 
-  public deleteLibraryError(error: Error): void {
-    this.store.dispatch(deleteLibraryError({ error }));
+  public deleteLibraryError(id: string, error: Error): void {
+    this.store.dispatch(deleteLibraryError({ id, error }));
   }
 
 

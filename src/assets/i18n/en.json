@@ -7,6 +7,7 @@
   "buttons": {
     "addLibrary": "Add library",
     "cancel": "Cancel",
+    "close": "Close",
     "confirm": "Confirm",
     "createAnAccount": "Create an account",
     "createLibrary": "Create library",

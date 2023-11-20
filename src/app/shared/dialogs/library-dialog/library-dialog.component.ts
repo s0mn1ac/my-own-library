@@ -2,8 +2,8 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 
-/* Material */
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+/* PrimeNG */
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 /* RxJs */
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -20,13 +20,13 @@ import { LibrariesService } from '../../services/libraries.service';
 import { LibraryDialogFormInterface } from './interfaces/library-dialog-form.interface';
 import { UserInterface } from '../../interfaces/user.interface';
 import { LibraryInterface } from '../../interfaces/library.interface';
-import { LibraryDialogInputDataInterface } from './interfaces/library-dialog-input-data.interface';
 import { LibraryDialogOutputDataInterface } from './interfaces/library-dialog-output-data.interface';
+import { FirestoreLibraryInterface } from '../../interfaces/firestore-library.interface';
 
 /* Enums */
 import { LibraryDialogFormEnum } from './enums/library-dialog-form.enum';
 import { LibraryDialogActionEnum } from './enums/library-dialog-action.enum';
-import { FirestoreLibraryInterface } from '../../interfaces/firestore-library.interface';
+import { ErrorEnum } from '../../enums/error.enum';
 
 @Component({
   selector: 'app-library-dialog',
@@ -39,7 +39,8 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
 
   protected readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
 
-  protected readonly LibraryFormEnum: typeof LibraryDialogFormEnum = LibraryDialogFormEnum;
+  protected readonly LibraryDialogFormEnum: typeof LibraryDialogFormEnum = LibraryDialogFormEnum;
+  protected readonly ErrorEnum: typeof ErrorEnum = ErrorEnum;
 
   public user!: UserInterface | null;
   public library!: LibraryInterface | null;
@@ -50,13 +51,13 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
   private _isLoading: boolean = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dialogInputData: LibraryDialogInputDataInterface,
-    private readonly matDialogRef: MatDialogRef<LibraryDialogComponent>,
+    private readonly dynamicDyalogConfig: DynamicDialogConfig,
+    private readonly dynamicDyalogRef: DynamicDialogRef,
     private readonly dispatcherService: DispatcherService,
     private readonly librariesService: LibrariesService,
     private readonly store: Store
   ) {
-    this.library = this.dialogInputData?.library ?? null;
+    this.library = this.dynamicDyalogConfig.data?.library ?? null;
     this.titleKey = this.library === null ? 'dialogs.library.createLibrary' : 'dialogs.library.modifyLibrary';
   }
 
@@ -99,7 +100,7 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
   public onClickCancel(): void {
-    this.matDialogRef.close({ actionPerformed: LibraryDialogActionEnum.Cancel } as LibraryDialogOutputDataInterface);
+    this.dynamicDyalogRef.close({ actionPerformed: LibraryDialogActionEnum.Cancel } as LibraryDialogOutputDataInterface);
   }
 
   public async onClickCreateLibrary(): Promise<void> {
@@ -118,7 +119,7 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
     };
 
     this.librariesService.createLibrary(library)
-      .then((): void => this.matDialogRef.close(LibraryDialogActionEnum.Save))
+      .then((): void => this.dynamicDyalogRef.close(LibraryDialogActionEnum.Save))
       .catch((error: Error) => this.dispatcherService.createLibraryError(error))
       .finally((): void => this.setLoadingState(false));
   }
@@ -134,7 +135,7 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
     const library: { name: string } = this.form.value;
 
     this.librariesService.modifyLibrary(this.library.id, library.name)
-      .then((): void => this.matDialogRef.close(LibraryDialogActionEnum.Save))
+      .then((): void => this.dynamicDyalogRef.close(LibraryDialogActionEnum.Save))
       .catch((error: Error) => this.dispatcherService.modifyLibraryError(error))
       .finally((): void => this.setLoadingState(false));
   }
@@ -147,6 +148,13 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
     this.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: UserInterface | null) => this.user = user);
+  }
+
+
+  /* ----- Other public methods --------------------------------------------------------------------------------------------------------- */
+
+  public checkErrors(error: ErrorEnum): boolean {
+    return this.form.controls[LibraryDialogFormEnum.Name].errors?.[error] && this.form.controls[LibraryDialogFormEnum.Name].dirty;
   }
 
 

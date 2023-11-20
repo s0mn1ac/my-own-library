@@ -12,7 +12,7 @@ import { SignInFormInterface } from './interfaces/sign-in-form.interface';
 
 /* Enums */
 import { SignInFormEnum } from './enums/sign-in-form.enum';
-import { LoaderTypeEnum } from '../../shared/enums/loader-type.enum';
+import { ErrorEnum } from '../../shared/enums/error.enum';
 
 @Component({
   selector: 'app-sign-in',
@@ -22,11 +22,11 @@ import { LoaderTypeEnum } from '../../shared/enums/loader-type.enum';
 export class SignInComponent implements OnInit {
 
   protected readonly SignInFormEnum: typeof SignInFormEnum = SignInFormEnum;
-  protected readonly LoaderTypeEnum: typeof LoaderTypeEnum = LoaderTypeEnum;
+  protected readonly ErrorEnum: typeof ErrorEnum = ErrorEnum;
 
-  private _signInForm!: UntypedFormGroup;
+  private _form!: UntypedFormGroup;
 
-  private _isSigningIn: boolean = false;
+  private _isLoading: boolean = false;
 
   constructor(
     private readonly authService: AuthService,
@@ -36,20 +36,20 @@ export class SignInComponent implements OnInit {
 
   /* ----- Getters & Setters ------------------------------------------------------------------------------------------------------------ */
 
-  get signInForm(): UntypedFormGroup {
-    return this._signInForm;
+  get form(): UntypedFormGroup {
+    return this._form;
   }
 
-  set signInForm(signInForm: UntypedFormGroup) {
-    this._signInForm = signInForm;
+  set form(form: UntypedFormGroup) {
+    this._form = form;
   }
 
-  get isSigningIn(): boolean {
-    return this._isSigningIn;
+  get isLoading(): boolean {
+    return this._isLoading;
   }
 
-  set isSigningIn(isSigningIn: boolean) {
-    this._isSigningIn = isSigningIn;
+  set isLoading(isLoading: boolean) {
+    this._isLoading = isLoading;
   }
 
 
@@ -63,22 +63,29 @@ export class SignInComponent implements OnInit {
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
 
   public onClickSignInWithEmailAndPassword(): void {
-    if (this.isSigningIn) {
+    if (this.isLoading) {
       return;
     }
-    this.isSigningIn = true;
-    const signIn: SignInInterface = this.signInForm.value;
+    this.isLoading = true;
+    const signIn: SignInInterface = this.form.value;
     this.authService.signInWithEmailAndPassword(signIn.email, signIn.password)
       .then(() => this.router.navigate(['/home']).then())
       .catch((error: Error) => console.error(error))
-      .finally((): boolean => this.isSigningIn = false);
+      .finally((): boolean => this.isLoading = false);
+  }
+
+
+  /* ----- Other public methods --------------------------------------------------------------------------------------------------------- */
+
+  public checkErrors(name: SignInFormEnum, error: ErrorEnum): boolean {
+    return this.form.controls[name].errors?.[error] && this.form.controls[name].dirty;
   }
 
 
   /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
 
   private initForm(): void {
-    this.signInForm = new FormGroup<SignInFormInterface>({
+    this.form = new FormGroup<SignInFormInterface>({
       email: new FormControl({ value: null, disabled: false }, [Validators.required]),
       password: new FormControl({ value: null, disabled: false }, [Validators.required])
     });

@@ -1,41 +1,46 @@
 <div class="sign-up-page-layout" *transloco="let t">
 
-  <section class="sign-up-page-layout__form-section">
+  <form class="sign-up-page-layout__form" [formGroup]="form" (submit)="onClickSignUpWithEmailAndPassword()">
 
-    <form class="form-layout" [formGroup]="signUpForm" (submit)="createUserWithEmailAndPassword()">
+    <div class="form__title-container">
 
-      <section class="form-layout__header-section">
-        <h1>{{ t('signUp.title') }}</h1>
-      </section>
+      <h1>{{ t('signUp.title') }}</h1>
 
-      <section class="form-layout__items-section">
-        <div class="items-section__form-item">
-          <span class="form-item__title">{{ t('signUp.form.name.title') }}</span>
-          <input type="text" [formControlName]="SignUpFormEnum.Name" [placeholder]="t('signUp.form.name.placeholder')">
-        </div>
-        <div class="items-section__form-item">
-          <span class="form-item__title">{{ t('signUp.form.email.title') }}</span>
-          <input type="email" [formControlName]="SignUpFormEnum.Email" [placeholder]="t('signUp.form.email.placeholder')">
-        </div>
-        <div class="items-section__form-item">
-          <span class="form-item__title">{{ t('signUp.form.password.title') }}</span>
-          <input type="password" [formControlName]="SignUpFormEnum.Password" [placeholder]="t('signUp.form.password.placeholder')">
-        </div>
-      </section>
+    </div>
 
-      <section class="form-layout__actions-section">
-        <button type="submit" [disabled]="signUpForm.invalid">
-          <span *ngIf="!isSigningUp">{{ t('buttons.createAnAccount') }}</span>
-          <app-loader [type]="LoaderTypeEnum.Ellipsis" *ngIf="isSigningUp"></app-loader>
-        </button>
-        <div class="actions-section__secondary-action">
-          <span>{{ t('signUp.form.alreadyOnMyOwnLibrary') }}</span>
-          <a routerLink="/sign-in">{{ t('signUp.form.signIn') }}</a>
-        </div>
-      </section>
+    <div class="my-form-item">
+          <span class="p-float-label">
+            <input type="text" pInputText pAutoFocus [autofocus]="true" [formControlName]="SignUpFormEnum.Email" />
+            <label>{{ t('signUp.form.email.title') }}</label>
+          </span>
+      <small *ngIf="checkErrors(SignUpFormEnum.Email, ErrorEnum.Required)">{{ t('forms.mandatoryField') }}</small>
+    </div>
 
-    </form>
+    <div class="my-form-item">
+          <span class="p-float-label">
+            <input type="text" pInputText pAutoFocus [autofocus]="true" [formControlName]="SignUpFormEnum.Password" />
+            <label>{{ t('signUp.form.password.title') }}</label>
+          </span>
+      <small *ngIf="checkErrors(SignUpFormEnum.Password, ErrorEnum.Required)">{{ t('forms.mandatoryField') }}</small>
+    </div>
 
-  </section>
+    <div class="form__actions-container">
+
+      <p-button
+        type="submit"
+        class="my-block-button"
+        [label]="t('buttons.createAnAccount')"
+        severity="primary"
+        [disabled]="isLoading">
+      </p-button>
+
+      <div class="actions-container__secondary-action">
+        <span>{{ t('signUp.form.alreadyOnMyOwnLibrary') }}</span>
+        <a routerLink="/sign-in">{{ t('signUp.form.signIn') }}</a>
+      </div>
+
+    </div>
+
+  </form>
 
 </div>

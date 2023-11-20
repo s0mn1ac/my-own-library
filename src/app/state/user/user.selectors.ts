@@ -1,18 +1,29 @@
 /* NgRx */
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { UserStateInterface, userFeatureName } from './user.reducers';
 
-export const selectUserState = createFeatureSelector<UserStateInterface>(userFeatureName);
+/* Interfaces */
+import { UserInterface } from '../../shared/interfaces/user.interface';
 
 
-/* ----- Items -------------------------------------------------------------------------------------------------------------------------- */
+/* ----- State -------------------------------------------------------------------------------------------------------------------------- */
 
-export const selectUser = createSelector(
-  selectUserState,
-  (state: UserStateInterface) => state.user
+export const selectUserState: MemoizedSelector<object, UserStateInterface> = createFeatureSelector<UserStateInterface>(
+  userFeatureName
 );
 
-export const selectIsLoadingUser = createSelector(
+
+/* ----- User --------------------------------------------------------------------------------------------------------------------------- */
+
+export const selectUser: MemoizedSelector<object, UserInterface | null> = createSelector(
   selectUserState,
-  (state: UserStateInterface) => state.loading
+  (state: UserStateInterface): UserInterface | null => state.user
+);
+
+
+/* ----- Loading ------------------------------------------------------------------------------------------------------------------------ */
+
+export const selectIsLoadingUser: MemoizedSelector<object, boolean> = createSelector(
+  selectUserState,
+  (state: UserStateInterface): boolean => state.loading
 );

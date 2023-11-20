@@ -7,4 +7,5 @@ export interface LibraryInterface {
   owner: string;
   games: GameInterface[];
   created: Date;
+  isLoading: boolean;
 }

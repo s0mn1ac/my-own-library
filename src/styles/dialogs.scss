@@ -1,3 +1,49 @@
-.mat-mdc-dialog-container .mdc-dialog__surface {
-  border-radius: 10px !important;
+p-dynamicdialog div.p-dialog-content {
+  border-radius: 10px;
+  padding: 0;
+
+  form.dialog-layout,
+  div.dialog-layout {
+    display: flex;
+    flex-direction: column;
+
+    section.dialog-layout__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem;
+      min-height: 112px;
+
+      h1 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      div.header__actions-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+
+    section.dialog-layout__content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 2rem;
+    }
+
+    section.dialog-layout__footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem;
+    }
+  }
 }

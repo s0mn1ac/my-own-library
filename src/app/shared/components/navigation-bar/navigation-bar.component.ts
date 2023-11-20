@@ -12,9 +12,9 @@ import { fadeInOut, fadeSlideHeightInOut, fadeSlideInOut } from '../../animation
 })
 export class NavigationBarComponent {
 
-  @Input() leftActionIcon: string | null = null;
+  @Input() leftActionIcon!: string | undefined;
   @Input() title!: string;
-  @Input() rightActionIcon: string | null = null;
+  @Input() rightActionIcon!: string | undefined;
 
   @Output() leftActionEvent: EventEmitter<void> = new EventEmitter<void>();
   @Output() rightActionEvent: EventEmitter<void> = new EventEmitter<void>();

@@ -1,37 +1,46 @@
 <div class="sign-in-page-layout" *transloco="let t">
 
-  <section class="sign-in-page-layout__form-section">
+  <form class="sign-in-page-layout__form" [formGroup]="form" (submit)="onClickSignInWithEmailAndPassword()">
 
-    <form class="form-layout" [formGroup]="signInForm" (submit)="onClickSignInWithEmailAndPassword()">
+    <div class="form__title-container">
 
-      <section class="form-layout__header-section">
-        <h1>{{ t('signIn.title') }}</h1>
-      </section>
+      <h1>{{ t('signIn.title') }}</h1>
 
-      <section class="form-layout__items-section">
-        <div class="items-section__form-item">
-          <span class="form-item__title">{{ t('signIn.form.email.title') }}</span>
-          <input type="email" [formControlName]="SignInFormEnum.Email" [placeholder]="t('signIn.form.email.placeholder')">
-        </div>
-        <div class="items-section__form-item">
-          <span class="form-item__title">{{ t('signIn.form.password.title') }}</span>
-          <input type="password" [formControlName]="SignInFormEnum.Password" [placeholder]="t('signIn.form.password.placeholder')">
-        </div>
-      </section>
+    </div>
 
-      <section class="form-layout__actions-section">
-        <button type="submit" [disabled]="signInForm.invalid">
-          <span *ngIf="!isSigningIn">{{ t('buttons.signIn') }}</span>
-          <app-loader [type]="LoaderTypeEnum.Ellipsis" *ngIf="isSigningIn"></app-loader>
-        </button>
-        <div class="actions-section__secondary-action">
-          <span>{{ t('signIn.form.newOnMyOwnLibrary') }}</span>
-          <a routerLink="/sign-up">{{ t('signIn.form.createAnAccount') }}</a>
-        </div>
-      </section>
+    <div class="my-form-item">
+          <span class="p-float-label">
+            <input type="text" pInputText pAutoFocus [autofocus]="true" [formControlName]="SignInFormEnum.Email" />
+            <label>{{ t('signIn.form.email.title') }}</label>
+          </span>
+      <small *ngIf="checkErrors(SignInFormEnum.Email, ErrorEnum.Required)">{{ t('forms.mandatoryField') }}</small>
+    </div>
 
-    </form>
+    <div class="my-form-item">
+          <span class="p-float-label">
+            <input type="text" pInputText pAutoFocus [autofocus]="true" [formControlName]="SignInFormEnum.Password" />
+            <label>{{ t('signIn.form.password.title') }}</label>
+          </span>
+      <small *ngIf="checkErrors(SignInFormEnum.Password, ErrorEnum.Required)">{{ t('forms.mandatoryField') }}</small>
+    </div>
 
-  </section>
+    <div class="form__actions-container">
+
+      <p-button
+        type="submit"
+        class="my-block-button"
+        [label]="t('buttons.signIn')"
+        severity="primary"
+        [disabled]="isLoading">
+      </p-button>
+
+      <div class="actions-container__secondary-action">
+        <span>{{ t('signIn.form.newOnMyOwnLibrary') }}</span>
+        <a routerLink="/sign-up">{{ t('signIn.form.createAnAccount') }}</a>
+      </div>
+
+    </div>
+
+  </form>
 
 </div>

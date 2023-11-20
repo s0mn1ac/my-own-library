@@ -3,9 +3,16 @@
   <div class="navigation-bar-layout">
 
     <section class="navigation-bar-layout__left-action-section">
-      <button mat-icon-button color="primary" (click)="onClickLeftActionButton()" *ngIf="leftActionIcon !== null">
-        <mat-icon>{{ leftActionIcon }}</mat-icon>
-      </button>
+
+      <p-button
+        [icon]="leftActionIcon"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        *ngIf="leftActionIcon !== undefined"
+        (onClick)="onClickLeftActionButton()">
+      </p-button>
+
     </section>
 
     <section class="navigation-bar-layout__title-section">
@@ -13,9 +20,16 @@
     </section>
 
     <section class="navigation-bar-layout__right-action-section">
-      <button mat-icon-button color="primary" (click)="onClickRightActionButton()" *ngIf="rightActionIcon !== null">
-        <mat-icon>{{ rightActionIcon }}</mat-icon>
-      </button>
+
+      <p-button
+        [icon]="rightActionIcon"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        *ngIf="rightActionIcon !== undefined"
+        (onClick)="onClickRightActionButton()">
+      </p-button>
+
     </section>
 
   </div>

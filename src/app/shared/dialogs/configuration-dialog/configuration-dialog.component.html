@@ -1,12 +1,22 @@
 <div class="dialog-layout configuration-dialog-layout" *transloco="let t">
 
   <section class="dialog-layout__header">
+
     <h1>{{ t('dialogs.configuration.title') }}</h1>
+
     <div class="header__actions-container">
-      <button mat-icon-button color="primary" *ngIf="!isLoading" (click)="onClickClose()">
-        <mat-icon>close</mat-icon>
-      </button>
-      <mat-spinner [diameter]="24" *ngIf="isLoading"></mat-spinner>
+
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        (onClick)="onClickClose()"
+        *ngIf="!isLoading">
+      </p-button>
+
+      <p-progressSpinner class="my-progress-spinner-sm" strokeWidth="4" *ngIf="isLoading"></p-progressSpinner>
+
     </div>
   </section>
 
@@ -20,7 +30,7 @@
 
         <div class="account-container__profile-picture-container">
           <img [src]="user?.photoURL" [alt]="t('dialogs.configuration.profilePicture')" *ngIf="user?.photoURL !== null">
-          <mat-icon *ngIf="user?.photoURL === null">person</mat-icon>
+          <i class="pi pi-user" *ngIf="user?.photoURL === null"></i>
         </div>
 
         <h3>{{ user?.displayName }}</h3>
@@ -31,7 +41,12 @@
 
       <div class="block__buttons-container">
 
-        <button mat-raised-button color="warn" (click)="onClickSignOut()">{{ t('buttons.signOut') }}</button>
+        <p-button
+          class="my-block-button"
+          [label]="t('buttons.signOut')"
+          severity="danger"
+          (onClick)="onClickSignOut()">
+        </p-button>
 
       </div>
 
@@ -41,14 +56,29 @@
 
       <h2>{{ t('dialogs.configuration.languages.title') }}</h2>
 
-      <mat-form-field>
-        <mat-label>{{ t('dialogs.configuration.languages.title') }}</mat-label>
-        <mat-select [(value)]="languageSelected" (selectionChange)="onClickChangeLanguage(languageSelected)">
-          <mat-option *ngFor="let language of languages" [value]="language">
-            {{ t('dialogs.configuration.languages.' + language) }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <p-selectButton
+        class="my-block-select-button"
+        [options]="languages"
+        [(ngModel)]="languageSelected"
+        (onOptionClick)="onChangeLanguage($event)">
+        <ng-template let-language pTemplate>
+          {{ t('dialogs.configuration.languages.' + language) }}
+        </ng-template>
+      </p-selectButton>
+
+<!--      <p-dropdown-->
+<!--        appendTo="body"-->
+<!--        [options]="languages"-->
+<!--        [ngModel]="languageSelected"-->
+<!--        [placeholder]="t('dialogs.configuration.languages.title')"-->
+<!--        (onChange)="onChangeLanguage($event)">-->
+<!--        <ng-template pTemplate="selectedItem">-->
+<!--          {{ t('dialogs.configuration.languages.' + languageSelected) }}-->
+<!--        </ng-template>-->
+<!--        <ng-template let-language pTemplate="item">-->
+<!--          {{ t('dialogs.configuration.languages.' + language) }}-->
+<!--        </ng-template>-->
+<!--      </p-dropdown>-->
 
     </div>
 
@@ -56,16 +86,42 @@
 
       <h2>{{ t('dialogs.configuration.themes.title') }}</h2>
 
-      <mat-form-field>
-        <mat-label>{{ t('dialogs.configuration.themes.title') }}</mat-label>
-        <mat-select [(value)]="themeSelected" (selectionChange)="onClickChangeTheme(themeSelected)">
-          <mat-option *ngFor="let theme of themes" [value]="theme">
-            {{ t('dialogs.configuration.themes.' + theme) }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <p-selectButton
+        class="my-block-select-button"
+        [options]="themes"
+        [(ngModel)]="themeSelected"
+        (onOptionClick)="onChangeTheme($event)">
+        <ng-template let-theme pTemplate>
+          {{ t('dialogs.configuration.themes.' + theme) }}
+        </ng-template>
+      </p-selectButton>
+
+      <!--      <p-dropdown-->
+<!--        appendTo="body"-->
+<!--        [options]="themes"-->
+<!--        [ngModel]="themeSelected"-->
+<!--        [placeholder]="t('dialogs.configuration.themes.title')"-->
+<!--        (onChange)="onChangeTheme($event)">-->
+<!--        <ng-template pTemplate="selectedItem">-->
+<!--          {{ t('dialogs.configuration.themes.' + themeSelected) }}-->
+<!--        </ng-template>-->
+<!--        <ng-template let-theme pTemplate="item">-->
+<!--          {{ t('dialogs.configuration.themes.' + theme) }}-->
+<!--        </ng-template>-->
+<!--      </p-dropdown>-->
 
     </div>
+
+  </section>
+
+  <section class="dialog-layout__footer configuration-dialog-layout__footer">
+
+    <p-button
+      [label]="t('buttons.close')"
+      severity="secondary"
+      [disabled]="isLoading"
+      (onClick)="onClickClose()">
+    </p-button>
 
   </section>
 
