@@ -3,10 +3,13 @@ import { Injectable } from '@angular/core';
 import { addDoc, arrayRemove, arrayUnion, collectionData, deleteDoc, doc, Firestore, getDocs, updateDoc, where } from '@angular/fire/firestore';
 
 /* Firebase */
-import { collection, CollectionReference, DocumentReference, query, Query, QuerySnapshot } from '@firebase/firestore';
+import { collection, CollectionReference, DocumentReference, query, Query, QueryDocumentSnapshot, QuerySnapshot } from '@firebase/firestore';
 
 /* RxJs */
 import { from, Observable } from 'rxjs';
+
+/* Services */
+import { DispatcherService } from './dispatcher.service';
 
 /* Interfaces */
 import { LibraryInterface } from '../interfaces/library.interface';
@@ -24,6 +27,7 @@ export class LibrariesService {
   private readonly librariesCollection!: CollectionReference;
 
   constructor(
+    private readonly dispatcherService: DispatcherService,
     private readonly firestore: Firestore
   ) {
     this.librariesCollection = collection(this.firestore, LibrariesCollection);
@@ -42,25 +46,58 @@ export class LibrariesService {
     return from(getDocs(librariesQuery)) as Observable<QuerySnapshot<LibraryInterface>>;
   }
 
-
-  /* ----- Create Library --------------------------------------------------------------------------------------------------------------- */
-
-  public createLibrary(library: FirestoreLibraryInterface): Promise<DocumentReference> {
-    return addDoc(this.librariesCollection, library);
+  public async getLibraries(uid: string): Promise<LibraryInterface[] | undefined> {
+    let libraries: LibraryInterface[] | undefined = undefined;
+    const librariesQuery: Query = query(collection(this.firestore, LibrariesCollection), where('owner', '==', uid));
+    await getDocs(librariesQuery)
+      .then((querySnapshot: QuerySnapshot<unknown>) => libraries = this.mapLibrariesFromQuerySnapshot(querySnapshot))
+      .catch(() => console.log('TODO: ERROR'));
+    return libraries;
   }
 
 
-  /* ----- Modify Library --------------------------------------------------------------------------------------------------------------- */
+  /* ----- Create Library --------------------------------------------------------------------------------------------------------------- */
 
-  public modifyLibrary(id: string, name: string): Promise<void> {
-    return updateDoc(doc(this.firestore, LibrariesCollection, id), { name: name });
+  public async createLibrary(library: FirestoreLibraryInterface): Promise<string | undefined> {
+    let libraryId: string | undefined = undefined;
+    this.dispatcherService.createLibraryLoad();
+    await addDoc(this.librariesCollection, library)
+      .then((documentReference: DocumentReference): void => {
+        libraryId = documentReference.id;
+        this.dispatcherService.createLibrarySuccess({ ...library, id: libraryId, isLoading: false });
+      })
+      .catch((error: Error) => this.dispatcherService.createLibraryError(error));
+    return libraryId;
+  }
+
+
+  /* ----- Update Library --------------------------------------------------------------------------------------------------------------- */
+
+  public async updateLibrary(library: LibraryInterface): Promise<boolean> {
+    let isLibraryUpdated: boolean = false;
+    this.dispatcherService.updateLibraryLoad(library.id);
+    await updateDoc(doc(this.firestore, LibrariesCollection, library.id), { name: library.name })
+      .then((): void => {
+        isLibraryUpdated = true;
+        this.dispatcherService.updateLibrarySuccess(library);
+      })
+      .catch((error: Error) => this.dispatcherService.updateLibraryError(library.id, error));
+    return isLibraryUpdated;
   }
 
 
   /* ----- Delete Library --------------------------------------------------------------------------------------------------------------- */
 
-  public deleteLibrary(id: string): Promise<void> {
-    return deleteDoc(doc(this.firestore, LibrariesCollection, id));
+  public async deleteLibrary(id: string): Promise<boolean> {
+    let isLibraryDeleted: boolean = false;
+    this.dispatcherService.deleteLibraryLoad(id);
+    await deleteDoc(doc(this.firestore, LibrariesCollection, id))
+      .then((): void => {
+        isLibraryDeleted = true;
+        this.dispatcherService.deleteLibrarySuccess(id);
+      })
+      .catch((error: Error) => this.dispatcherService.deleteLibraryError(id, error));
+    return isLibraryDeleted;
   }
 
 
@@ -91,6 +128,19 @@ export class LibrariesService {
         platforms: game.platforms
       })
     });
+  }
+
+
+  /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
+
+  private mapLibrariesFromQuerySnapshot(querySnapshot: QuerySnapshot<unknown>): LibraryInterface[] {
+    const libraries: LibraryInterface[] = [];
+    querySnapshot.forEach((doc: QueryDocumentSnapshot<unknown>) => libraries.push({
+      ...doc.data() as LibraryInterface,
+      id: doc.id,
+      isLoading: false
+    }));
+    return libraries;
   }
 
 }

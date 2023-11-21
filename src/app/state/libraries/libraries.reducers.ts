@@ -1,6 +1,6 @@
 /* NgRx */
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { createLibraryError, createLibraryLoad, createLibrarySuccess, getLibrariesError, getLibrariesLoad, getLibrariesSuccess, deleteLibraryLoad, deleteLibrarySuccess, deleteLibraryError, updateLibraries } from './libraries.actions';
+import { createLibraryError, createLibraryLoad, createLibrarySuccess, getLibrariesError, getLibrariesLoad, getLibrariesSuccess, deleteLibraryLoad, deleteLibrarySuccess, deleteLibraryError, updateLibraries, updateLibraryLoad, updateLibrarySuccess, updateLibraryError } from './libraries.actions';
 
 /* Lodash */
 import { orderBy } from 'lodash';
@@ -40,18 +40,33 @@ export const librariesReducer: ActionReducer<LibrariesStateInterface, Action> = 
     ...state,
     isLoading: false
   })),
-  on(createLibraryLoad, (state): LibrariesStateInterface => ({
-    ...state,
-    isLoading: true
-  })),
   on(createLibrarySuccess, (state, { library }): LibrariesStateInterface => ({
     ...state,
-    libraries: [...state.libraries, library],
-    isLoading: false
+    libraries: [library, ...state.libraries]
   })),
   on(createLibraryError, (state, { error }): LibrariesStateInterface => ({
+    ...state
+  })),
+  on(updateLibraryLoad, (state, { id }): LibrariesStateInterface => ({
     ...state,
-    isLoading: false
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === id
+        ? ({ ...libraryToMap, isLoading: true })
+        : libraryToMap)
+  })),
+  on(updateLibrarySuccess, (state, { library }): LibrariesStateInterface => ({
+    ...state,
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === library.id
+        ? ({ ...libraryToMap, name: library.name, isLoading: false })
+        : libraryToMap)
+  })),
+  on(updateLibraryError, (state, { id, error }): LibrariesStateInterface => ({
+    ...state,
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === id
+        ? ({ ...libraryToMap, isLoading: true })
+        : libraryToMap)
   })),
   on(deleteLibraryLoad, (state, { id }): LibrariesStateInterface => ({
     ...state,

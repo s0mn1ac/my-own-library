@@ -118,10 +118,15 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
       created: new Date()
     };
 
-    this.librariesService.createLibrary(library)
-      .then((): void => this.dynamicDyalogRef.close(LibraryDialogActionEnum.Save))
-      .catch((error: Error) => this.dispatcherService.createLibraryError(error))
-      .finally((): void => this.setLoadingState(false));
+    const libraryId: string | undefined = await this.librariesService.createLibrary(library);
+
+    if (libraryId === undefined) {
+      this.setLoadingState(false);
+      return;
+    }
+
+    this.dynamicDyalogRef.close(LibraryDialogActionEnum.Save);
+    this.setLoadingState(false);
   }
 
   public async onClickModifyLibrary(): Promise<void> {
@@ -132,12 +137,17 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
 
     this.setLoadingState(true);
 
-    const library: { name: string } = this.form.value;
+    const library: LibraryInterface = { ...this.library, name: this.form.value['name'] };
 
-    this.librariesService.modifyLibrary(this.library.id, library.name)
-      .then((): void => this.dynamicDyalogRef.close(LibraryDialogActionEnum.Save))
-      .catch((error: Error) => this.dispatcherService.modifyLibraryError(error))
-      .finally((): void => this.setLoadingState(false));
+    const isLibraryUpdated: boolean = await this.librariesService.updateLibrary(library);
+
+    if (!isLibraryUpdated) {
+      this.setLoadingState(false);
+      return;
+    }
+
+    this.dynamicDyalogRef.close(LibraryDialogActionEnum.Save);
+    this.setLoadingState(false);
   }
 
 

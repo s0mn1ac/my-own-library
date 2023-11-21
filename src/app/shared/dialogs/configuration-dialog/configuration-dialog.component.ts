@@ -17,6 +17,7 @@ import { selectUser } from '../../../state/user/user.selectors';
 
 /* Services */
 import { AuthService } from '../../services/auth.service';
+import { ConfigurationsService } from '../../services/configurations.service';
 import { DispatcherService } from '../../services/dispatcher.service';
 
 /* Interfaces */
@@ -27,8 +28,6 @@ import { UserInterface } from '../../interfaces/user.interface';
 import { ConfigurationDialogActionEnum } from './enums/configuration-dialog-action.enum';
 import { ThemeEnum } from '../../enums/theme.enum';
 import { LanguageEnum } from '../../enums/language.enum';
-import { ConfigurationsService } from '../../services/configurations.service';
-import { FirestoreConfigurationInterface } from '../../interfaces/firestore-configuration.interface';
 
 @Component({
   selector: 'app-library-dialog',
@@ -131,6 +130,8 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
 
   public onChangeLanguage(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
 
+    this.dispatcherService.changeLanguage(selectButtonOptionClickEvent.option as LanguageEnum);
+
     if (this.user === null) {
       return;
     }
@@ -139,6 +140,8 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
   }
 
   public onChangeTheme(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
+
+    this.dispatcherService.changeTheme(selectButtonOptionClickEvent.option as ThemeEnum);
 
     if (this.user === null) {
       return;

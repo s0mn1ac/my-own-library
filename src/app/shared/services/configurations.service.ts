@@ -1,9 +1,9 @@
 /* Angular */
 import { Injectable } from '@angular/core';
-import { collectionData, deleteDoc, doc, Firestore, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { collectionData, deleteDoc, doc, Firestore, getDoc, setDoc, updateDoc, where } from '@angular/fire/firestore';
 
 /* Firebase */
-import { collection, CollectionReference, query, Query } from '@firebase/firestore';
+import { collection, CollectionReference, query, Query, DocumentSnapshot, DocumentData, QuerySnapshot, QueryDocumentSnapshot } from '@firebase/firestore';
 
 /* Interfaces */
 import { FirestoreConfigurationInterface } from '../interfaces/firestore-configuration.interface';
@@ -12,6 +12,9 @@ import { FirestoreConfigurationInterface } from '../interfaces/firestore-configu
 import { ConfigurationsCollection } from '../constants/collections.constants';
 import { Observable } from 'rxjs';
 import { ConfigurationInterface } from '../interfaces/configuration.interface';
+import { LanguageEnum } from '../enums/language.enum';
+import { ThemeEnum } from '../enums/theme.enum';
+import { LibraryInterface } from '../interfaces/library.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +37,13 @@ export class ConfigurationsService {
     return collectionData(configurationsQuery, { idField: 'id' }) as Observable<ConfigurationInterface[]>;
   }
 
-  // public getConfiguration(id: string): Promise<DocumentSnapshot> {
-  //   return getDoc(doc(this.firestore, ConfigurationsCollection, id));
-  // }
+  public async getConfiguration(id: string): Promise<ConfigurationInterface | undefined> {
+    let configuration: ConfigurationInterface | undefined = undefined;
+    await getDoc(doc(this.firestore, ConfigurationsCollection, id))
+      .then((documentSnapshot: DocumentSnapshot) => configuration = this.mapConfigurationFromDocumentSnapshot(documentSnapshot))
+      .catch(() => console.log('TODO: ERROR'));
+    return configuration;
+  }
 
 
   /* ----- Create Configuration --------------------------------------------------------------------------------------------------------- */
@@ -48,12 +55,20 @@ export class ConfigurationsService {
 
   /* ----- Update Configuration --------------------------------------------------------------------------------------------------------- */
 
-  public updateLanguage(id: string, language: string): Promise<void> {
-    return updateDoc(doc(this.firestore, ConfigurationsCollection, id), { language: language });
+  public async updateLanguage(id: string, language: string): Promise<boolean> {
+    let isLanguageUpdated: boolean = false;
+    await updateDoc(doc(this.firestore, ConfigurationsCollection, id), { language: language })
+      .then((): boolean => isLanguageUpdated = true)
+      .catch(() => console.log('TODO: ERROR'));
+    return isLanguageUpdated;
   }
 
-  public updateTheme(id: string, theme: string): Promise<void> {
-    return updateDoc(doc(this.firestore, ConfigurationsCollection, id), { theme: theme });
+  public async updateTheme(id: string, theme: string): Promise<boolean> {
+    let isThemeUpdated: boolean = false;
+    await updateDoc(doc(this.firestore, ConfigurationsCollection, id), { theme: theme })
+      .then((): boolean => isThemeUpdated = true)
+      .catch(() => console.log('TODO: ERROR'));
+    return isThemeUpdated;
   }
 
 
@@ -61,6 +76,20 @@ export class ConfigurationsService {
 
   public deleteConfiguration(id: string): Promise<void> {
     return deleteDoc(doc(this.firestore, ConfigurationsCollection, id));
+  }
+
+
+  /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
+
+  private mapConfigurationFromDocumentSnapshot(documentSnapshot: DocumentSnapshot): ConfigurationInterface | undefined {
+    const documentSnapshotData: DocumentData | undefined = documentSnapshot.data();
+    return documentSnapshotData === undefined
+      ? undefined
+      : {
+        id: documentSnapshot.id,
+        language: documentSnapshotData['language'] as LanguageEnum,
+        theme: documentSnapshotData['theme'] as ThemeEnum
+      };
   }
 
 }

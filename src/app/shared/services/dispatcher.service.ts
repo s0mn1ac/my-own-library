@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { changeLanguageLoad } from '../../state/language/language.actions';
 import { changeThemeLoad } from '../../state/theme/theme.actions';
 import { getUserError, getUserLoad, getUserSuccess, updateUser } from '../../state/user/user.actions';
-import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, modifyLibraryError, modifyLibraryLoad, modifyLibrarySuccess, updateLibraries } from '../../state/libraries/libraries.actions';
+import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, updateLibraryError, updateLibraryLoad, updateLibrarySuccess, updateLibraries } from '../../state/libraries/libraries.actions';
 
 /* Interfaces */
 import { UserInterface } from '../interfaces/user.interface';
@@ -55,16 +55,16 @@ export class DispatcherService {
     this.store.dispatch(createLibraryError({ error }));
   }
 
-  public modifyLibraryLoad(): void {
-    this.store.dispatch(modifyLibraryLoad());
+  public updateLibraryLoad(id: string): void {
+    this.store.dispatch(updateLibraryLoad({ id }));
   }
 
-  public modifyLibrarySuccess(library: LibraryInterface): void {
-    this.store.dispatch(modifyLibrarySuccess({ library }));
+  public updateLibrarySuccess(library: LibraryInterface): void {
+    this.store.dispatch(updateLibrarySuccess({ library }));
   }
 
-  public modifyLibraryError(error: Error): void {
-    this.store.dispatch(modifyLibraryError({ error }));
+  public updateLibraryError(id: string, error: Error): void {
+    this.store.dispatch(updateLibraryError({ id, error }));
   }
 
   public deleteLibraryLoad(id: string): void {

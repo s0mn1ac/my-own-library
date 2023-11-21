@@ -13,9 +13,9 @@ export enum LibrariesStateEnum {
   CreateLibraryLoad = '[Libraries] [Load] Create Library',
   CreateLibrarySuccess = '[Libraries] [Success] Create Library',
   CreateLibraryError = '[Libraries] [Error] Create Library',
-  ModifyLibraryLoad = '[Libraries] [Load] Modify Library',
-  ModifyLibrarySuccess = '[Libraries] [Success] Modify Library',
-  ModifyLibraryError = '[Libraries] [Error] Modify Library',
+  UpdateLibraryLoad = '[Libraries] [Load] Update Library',
+  UpdateLibrarySuccess = '[Libraries] [Success] Update Library',
+  UpdateLibraryError = '[Libraries] [Error] Update Library',
   DeleteLibraryLoad = '[Libraries] [Load] Delete Library',
   DeleteLibrarySuccess = '[Libraries] [Success] Delete Library',
   DeleteLibraryError = '[Libraries] [Error] Delete Library',
@@ -70,20 +70,21 @@ export const createLibraryError = createAction(
 );
 
 
-/* ----- Modify Library ----------------------------------------------------------------------------------------------------------------- */
+/* ----- Update Library ----------------------------------------------------------------------------------------------------------------- */
 
-export const modifyLibraryLoad = createAction(
-  LibrariesStateEnum.ModifyLibraryLoad
+export const updateLibraryLoad = createAction(
+  LibrariesStateEnum.UpdateLibraryLoad,
+  props<{ id: string }>()
 );
 
-export const modifyLibrarySuccess = createAction(
-  LibrariesStateEnum.ModifyLibrarySuccess,
+export const updateLibrarySuccess = createAction(
+  LibrariesStateEnum.UpdateLibrarySuccess,
   props<{ library: LibraryInterface }>()
 );
 
-export const modifyLibraryError = createAction(
-  LibrariesStateEnum.ModifyLibraryError,
-  props<{ error: Error }>()
+export const updateLibraryError = createAction(
+  LibrariesStateEnum.UpdateLibraryError,
+  props<{ id: string, error: Error }>()
 );
 
 

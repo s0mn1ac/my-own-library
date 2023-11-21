@@ -18,6 +18,10 @@ import { LibrariesService } from './shared/services/libraries.service';
 import { UserInterface } from './shared/interfaces/user.interface';
 import { LibraryInterface } from './shared/interfaces/library.interface';
 import { ConfigurationInterface } from './shared/interfaces/configuration.interface';
+import { LanguageEnum } from './shared/enums/language.enum';
+import { ThemeEnum } from './shared/enums/theme.enum';
+import { selectLanguage } from './state/language/language.selectors';
+import { selectTheme } from './state/theme/theme.selectors';
 
 @Component({
   selector: 'app-root',
@@ -28,14 +32,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   protected readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
+  protected readonly language$: Observable<LanguageEnum> = this.store.select(selectLanguage);
+  protected readonly theme$: Observable<ThemeEnum> = this.store.select(selectTheme);
   protected readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
 
+  private language!: LanguageEnum;
+  private theme!: ThemeEnum;
   private user!: UserInterface | null;
 
-  private configuration!: ConfigurationInterface;
-  private libraries!: LibraryInterface[];
-
-  private _isLibrariesSubscriptionInitialized: boolean = false;
+  private configuration!: ConfigurationInterface | undefined;
+  private libraries!: LibraryInterface[] | undefined;
 
   constructor(
     private readonly authService: AuthService,
@@ -45,22 +51,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly store: Store
   ) { }
 
-  /* ----- Getters & Setters ------------------------------------------------------------------------------------------------------------ */
-
-  get isLibrariesSubscriptionInitialized(): boolean {
-    return this._isLibrariesSubscriptionInitialized;
-  }
-
-  set isLibrariesSubscriptionInitialized(isLibrariesSubscriptionInitialized: boolean) {
-    this._isLibrariesSubscriptionInitialized = isLibrariesSubscriptionInitialized;
-  }
-
 
   /* ----- Life cycle methods ----------------------------------------------------------------------------------------------------------- */
 
   ngOnInit(): void {
     this.initStoreSubscriptions();
-    this.initFirestoreSubscriptions();
   }
 
   ngOnDestroy(): void {
@@ -73,47 +68,61 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private initStoreSubscriptions(): void {
 
+    this.language$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((language: LanguageEnum): LanguageEnum => this.language = language);
+
+    this.theme$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((theme: ThemeEnum): ThemeEnum => this.theme = theme);
+
     this.user$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserInterface | null): void => this.onChangeUser(user));
+      .subscribe((user: UserInterface | null): Promise<void> => this.onChangeUser(user));
   }
 
-  private onChangeUser(user: UserInterface | null): void {
-    this.isLibrariesSubscriptionInitialized = !(user === null || this.user?.uid !== user?.uid);
+  private async onChangeUser(user: UserInterface | null): Promise<void> {
+
+    const isUserAlreadyLoggedIn: boolean = this.user?.uid === user?.uid;
+
     this.user = user;
-    this.initFirestoreSubscriptions();
-  }
 
-
-  /* ----- Firestore related Methods ---------------------------------------------------------------------------------------------------- */
-
-  private initFirestoreSubscriptions(): void {
-
-    if (this.user === null || this.isLibrariesSubscriptionInitialized) {
+    if (this.user === null || isUserAlreadyLoggedIn) {
       return;
     }
 
-    this.isLibrariesSubscriptionInitialized = true;
-
-    console.log('init')
-
-    this.configurationsService.getConfigurationSubscription(this.user.uid)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((configuration: ConfigurationInterface[]): void => this.onChangeConfiguration(configuration));
-
-    this.librariesService.getLibrariesSubscription(this.user.uid)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((libraries: LibraryInterface[]): void => this.onChangeLibraries(libraries));
+    this.getConfiguration(this.user.uid).then();
+    this.getLibraries(this.user.uid).then();
   }
 
-  private onChangeConfiguration(configurations: ConfigurationInterface[]): void {
-    this.configuration = configurations[0];
-    this.dispatcherService.changeLanguage(this.configuration.language);
-    this.dispatcherService.changeTheme(this.configuration.theme);
+
+  /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
+
+  private async getConfiguration(uid: string): Promise<void> {
+
+    this.configuration = await this.configurationsService.getConfiguration(uid);
+
+    if (this.configuration === undefined) {
+      return;
+    }
+
+    if (this.configuration.language !== this.language) {
+      this.dispatcherService.changeLanguage(this.configuration.language);
+    }
+
+    if (this.configuration.theme !== this.theme) {
+      this.dispatcherService.changeTheme(this.configuration.theme);
+    }
   }
 
-  private onChangeLibraries(libraries: LibraryInterface[]): void {
-    this.libraries = libraries.map((libraryToMap: LibraryInterface): LibraryInterface => ({ ...libraryToMap, isLoading: false }));
+  private async getLibraries(uid: string): Promise<void> {
+
+    this.libraries = await this.librariesService.getLibraries(uid);
+
+    if (this.libraries === undefined) {
+      return;
+    }
+
     this.dispatcherService.updateLibraries(this.libraries);
   }
 
