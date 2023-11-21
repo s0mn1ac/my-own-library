@@ -27,6 +27,8 @@ import { UserInterface } from '../../interfaces/user.interface';
 import { ConfigurationDialogActionEnum } from './enums/configuration-dialog-action.enum';
 import { ThemeEnum } from '../../enums/theme.enum';
 import { LanguageEnum } from '../../enums/language.enum';
+import { ConfigurationsService } from '../../services/configurations.service';
+import { FirestoreConfigurationInterface } from '../../interfaces/firestore-configuration.interface';
 
 @Component({
   selector: 'app-library-dialog',
@@ -51,9 +53,10 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
   private _isLoading: boolean = false;
 
   constructor(
-    private readonly dynamicDyalogRef: DynamicDialogRef,
     private readonly authService: AuthService,
+    private readonly configurationsService: ConfigurationsService,
     private readonly dispatcherService: DispatcherService,
+    private readonly dynamicDyalogRef: DynamicDialogRef,
     private readonly router: Router,
     private readonly store: Store
   ) { }
@@ -127,11 +130,21 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
   /* ----- On change methods ------------------------------------------------------------------------------------------------------------ */
 
   public onChangeLanguage(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
-    this.dispatcherService.changeLanguage(selectButtonOptionClickEvent.option as LanguageEnum);
+
+    if (this.user === null) {
+      return;
+    }
+
+    this.configurationsService.updateLanguage(this.user.uid, selectButtonOptionClickEvent.option as LanguageEnum).then();
   }
 
   public onChangeTheme(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
-    this.dispatcherService.changeTheme(selectButtonOptionClickEvent.option as ThemeEnum);
+
+    if (this.user === null) {
+      return;
+    }
+
+    this.configurationsService.updateTheme(this.user.uid, selectButtonOptionClickEvent.option as ThemeEnum).then();
   }
 
 }

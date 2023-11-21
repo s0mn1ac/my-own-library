@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { addDoc, arrayRemove, arrayUnion, collectionData, deleteDoc, doc, Firestore, getDocs, updateDoc, where } from '@angular/fire/firestore';
 
 /* Firebase */
-import { collection, CollectionReference, DocumentReference, query, Query, QuerySnapshot, DocumentData } from '@firebase/firestore';
+import { collection, CollectionReference, DocumentReference, query, Query, QuerySnapshot } from '@firebase/firestore';
 
 /* RxJs */
 import { from, Observable } from 'rxjs';
@@ -11,10 +11,10 @@ import { from, Observable } from 'rxjs';
 /* Interfaces */
 import { LibraryInterface } from '../interfaces/library.interface';
 import { GameInterface } from '../interfaces/game.interface';
+import { FirestoreLibraryInterface } from '../interfaces/firestore-library.interface';
 
 /* Constants */
 import { LibrariesCollection } from '../constants/collections.constants';
-import { FirestoreLibraryInterface } from '../interfaces/firestore-library.interface';
 
 @Injectable({
   providedIn: 'root'

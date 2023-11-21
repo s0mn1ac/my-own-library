@@ -1,2 +1,2 @@
-export const UsersCollection: string = 'users';
+export const ConfigurationsCollection: string = 'configurations';
 export const LibrariesCollection: string = 'libraries';

@@ -10,12 +10,14 @@ import { selectUser } from './state/user/user.selectors';
 
 /* Services */
 import { AuthService } from './shared/services/auth.service';
+import { ConfigurationsService } from './shared/services/configurations.service';
 import { DispatcherService } from './shared/services/dispatcher.service';
 import { LibrariesService } from './shared/services/libraries.service';
 
 /* Interfaces */
 import { UserInterface } from './shared/interfaces/user.interface';
 import { LibraryInterface } from './shared/interfaces/library.interface';
+import { ConfigurationInterface } from './shared/interfaces/configuration.interface';
 
 @Component({
   selector: 'app-root',
@@ -30,12 +32,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private user!: UserInterface | null;
 
+  private configuration!: ConfigurationInterface;
   private libraries!: LibraryInterface[];
 
   private _isLibrariesSubscriptionInitialized: boolean = false;
 
   constructor(
     private readonly authService: AuthService,
+    private readonly configurationsService: ConfigurationsService,
     private readonly dispatcherService: DispatcherService,
     private readonly librariesService: LibrariesService,
     private readonly store: Store
@@ -91,9 +95,21 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.isLibrariesSubscriptionInitialized = true;
 
+    console.log('init')
+
+    this.configurationsService.getConfigurationSubscription(this.user.uid)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((configuration: ConfigurationInterface[]): void => this.onChangeConfiguration(configuration));
+
     this.librariesService.getLibrariesSubscription(this.user.uid)
       .pipe(takeUntil(this.destroy$))
       .subscribe((libraries: LibraryInterface[]): void => this.onChangeLibraries(libraries));
+  }
+
+  private onChangeConfiguration(configurations: ConfigurationInterface[]): void {
+    this.configuration = configurations[0];
+    this.dispatcherService.changeLanguage(this.configuration.language);
+    this.dispatcherService.changeTheme(this.configuration.theme);
   }
 
   private onChangeLibraries(libraries: LibraryInterface[]): void {
