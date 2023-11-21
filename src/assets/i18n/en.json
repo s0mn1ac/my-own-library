@@ -99,6 +99,13 @@
         "dark": "Dark"
       }
     }
+  },
+
+  "messages": {
+    "confirmations": {
+      "confirmDeleteLibraryTitle": "Delete library",
+      "confirmDeleteLibraryMessage": "The library will be removed from your account and it won't be possible to restore it. Do you want to continue?"
+    }
   }
 
 }

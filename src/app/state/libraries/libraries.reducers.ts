@@ -1,6 +1,6 @@
 /* NgRx */
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { createLibraryError, createLibraryLoad, createLibrarySuccess, getLibrariesError, getLibrariesLoad, getLibrariesSuccess, deleteLibraryLoad, deleteLibrarySuccess, deleteLibraryError, updateLibraries, updateLibraryLoad, updateLibrarySuccess, updateLibraryError } from './libraries.actions';
+import { createLibraryError, createLibrarySuccess, getLibrariesError, getLibrariesLoad, getLibrariesSuccess, deleteLibraryLoad, deleteLibrarySuccess, deleteLibraryError, updateLibraries, updateLibraryLoad, updateLibrarySuccess, updateLibraryError } from './libraries.actions';
 
 /* Lodash */
 import { orderBy } from 'lodash';
@@ -78,9 +78,7 @@ export const librariesReducer: ActionReducer<LibrariesStateInterface, Action> = 
   on(deleteLibrarySuccess, (state, { id }): LibrariesStateInterface => ({
     ...state,
     libraries: state.libraries
-      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === id
-        ? ({ ...libraryToMap, isLoading: false })
-        : libraryToMap)
+      .filter((libraryToMap: LibraryInterface): boolean => libraryToMap.id !== id)
   })),
   on(deleteLibraryError, (state, { id, error }): LibrariesStateInterface => ({
     ...state,
