@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 /* NgRx */
 import { Store } from '@ngrx/store';
-import { changeLanguageLoad } from '../../state/language/language.actions';
+import { changeLanguageLoad, changeLanguageSuccess } from '../../state/language/language.actions';
 import { changeThemeLoad } from '../../state/theme/theme.actions';
 import { getUserError, getUserLoad, getUserSuccess, updateUser } from '../../state/user/user.actions';
 import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, updateLibraryError, updateLibraryLoad, updateLibrarySuccess, updateLibraries, getLibrariesSuccess } from '../../state/libraries/libraries.actions';
@@ -30,6 +30,10 @@ export class DispatcherService {
 
   public changeLanguageLoad(language: LanguageEnum): void {
     this.store.dispatch(changeLanguageLoad({ language }));
+  }
+
+  public changeLanguageSuccess(language: LanguageEnum): void {
+    this.store.dispatch(changeLanguageSuccess({ language }));
   }
 
 
