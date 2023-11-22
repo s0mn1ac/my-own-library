@@ -6,18 +6,10 @@
 
     <div class="header__actions-container">
 
-      <p-button
-        icon="pi pi-times"
-        [rounded]="true"
-        [text]="true"
-        severity="secondary"
-        (onClick)="onClickClose()"
-        *ngIf="!isLoading">
-      </p-button>
-
       <p-progressSpinner class="my-progress-spinner-sm" strokeWidth="4" *ngIf="isLoading"></p-progressSpinner>
 
     </div>
+
   </section>
 
   <section class="dialog-layout__content configuration-dialog-layout__content">

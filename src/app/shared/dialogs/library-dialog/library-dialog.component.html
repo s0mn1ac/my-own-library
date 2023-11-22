@@ -1,4 +1,4 @@
-<form class="dialog-layout library-dialog-layout" [formGroup]="form" *transloco="let t">
+<form class="dialog-layout library-dialog-layout" *transloco="let t" [formGroup]="form" (submit)="onSubmit()">
 
   <section class="dialog-layout__header">
 
@@ -34,19 +34,10 @@
     </p-button>
 
     <p-button
-      [label]="t('buttons.createLibrary')"
+      type="submit"
+      [label]="library === null ? t('buttons.createLibrary') : t('buttons.modifyLibrary')"
       severity="primary"
-      [disabled]="form.invalid || isLoading"
-      (onClick)="onClickCreateLibrary()"
-      *ngIf="library === null">
-    </p-button>
-
-    <p-button
-      [label]="t('buttons.modifyLibrary')"
-      severity="primary"
-      [disabled]="form.invalid || isLoading"
-      (onClick)="onClickModifyLibrary()"
-      *ngIf="library !== null">
+      [disabled]="form.invalid || isLoading">
     </p-button>
 
   </section>

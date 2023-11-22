@@ -103,7 +103,37 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
     this.dynamicDyalogRef.close({ actionPerformed: LibraryDialogActionEnum.Cancel } as LibraryDialogOutputDataInterface);
   }
 
-  public async onClickCreateLibrary(): Promise<void> {
+
+  /* ----- Store related Methods -------------------------------------------------------------------------------------------------------- */
+
+  private initStoreSubscriptions(): void {
+
+    this.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserInterface | null) => this.user = user);
+  }
+
+
+  /* ----- Other public methods --------------------------------------------------------------------------------------------------------- */
+
+  public onSubmit(): void {
+    this.library === null ? this.onClickCreateLibrary().then() : this.onClickModifyLibrary().then();
+  }
+
+  public checkErrors(error: ErrorEnum): boolean {
+    return this.form.controls[LibraryDialogFormEnum.Name].errors?.[error] && this.form.controls[LibraryDialogFormEnum.Name].dirty;
+  }
+
+
+  /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
+
+  private initForm(): void {
+    this.form = new FormGroup<LibraryDialogFormInterface>({
+      name: new FormControl({ value: this.library?.name ?? null, disabled: false }, [Validators.required])
+    });
+  }
+
+  private async onClickCreateLibrary(): Promise<void> {
 
     if (this.user === null) {
       return;
@@ -129,7 +159,7 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
     this.setLoadingState(false);
   }
 
-  public async onClickModifyLibrary(): Promise<void> {
+  private async onClickModifyLibrary(): Promise<void> {
 
     if (this.user === null || this.library === null) {
       return;
@@ -148,32 +178,6 @@ export class LibraryDialogComponent implements OnInit, OnDestroy {
 
     this.dynamicDyalogRef.close(LibraryDialogActionEnum.Save);
     this.setLoadingState(false);
-  }
-
-
-  /* ----- Store related Methods -------------------------------------------------------------------------------------------------------- */
-
-  private initStoreSubscriptions(): void {
-
-    this.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserInterface | null) => this.user = user);
-  }
-
-
-  /* ----- Other public methods --------------------------------------------------------------------------------------------------------- */
-
-  public checkErrors(error: ErrorEnum): boolean {
-    return this.form.controls[LibraryDialogFormEnum.Name].errors?.[error] && this.form.controls[LibraryDialogFormEnum.Name].dirty;
-  }
-
-
-  /* ----- Other private methods -------------------------------------------------------------------------------------------------------- */
-
-  private initForm(): void {
-    this.form = new FormGroup<LibraryDialogFormInterface>({
-      name: new FormControl({ value: this.library?.name ?? null, disabled: false }, [Validators.required])
-    });
   }
 
   private setLoadingState(isLoading: boolean): void {
