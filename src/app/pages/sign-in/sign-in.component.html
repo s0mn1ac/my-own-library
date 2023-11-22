@@ -18,7 +18,7 @@
 
     <div class="my-form-item">
           <span class="p-float-label">
-            <input type="text" pInputText pAutoFocus [autofocus]="true" [formControlName]="SignInFormEnum.Password" />
+            <input type="password" pInputText pAutoFocus [autofocus]="false" [formControlName]="SignInFormEnum.Password" />
             <label>{{ t('signIn.form.password.title') }}</label>
           </span>
       <small *ngIf="checkErrors(SignInFormEnum.Password, ErrorEnum.Required)">{{ t('forms.mandatoryField') }}</small>
