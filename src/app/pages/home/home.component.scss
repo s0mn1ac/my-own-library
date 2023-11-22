@@ -1,5 +1,6 @@
 @import 'src/styles/mixins';
 
-div.home-page-layout section.home-page-layout__content {
-  padding: 80px 1rem 6.5rem 1rem;
+div.home-page-layout {
+  gap: 2rem;
+  padding-bottom: 7rem;
 }

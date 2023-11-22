@@ -1,5 +1,9 @@
 @import 'src/styles/mixins';
 
+:host {
+  flex: 1;
+}
+
 div.sign-in-page-layout {
   display: flex;
   flex-direction: column;

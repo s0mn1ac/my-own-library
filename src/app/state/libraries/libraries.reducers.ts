@@ -33,7 +33,7 @@ export const librariesReducer: ActionReducer<LibrariesStateInterface, Action> = 
   })),
   on(getLibrariesSuccess, (state, { libraries }): LibrariesStateInterface => ({
     ...state,
-    libraries: libraries,
+    libraries: orderBy(libraries, 'created', 'desc'),
     isLoading: false
   })),
   on(getLibrariesError, (state, { error }): LibrariesStateInterface => ({

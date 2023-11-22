@@ -23,6 +23,9 @@ export class AuthService {
     this.initAuthSubscription();
   }
 
+
+  /* ----- Getters & Setters ------------------------------------------------------------------------------------------------------------ */
+
   get currentUser(): User | null {
     return this.auth.currentUser;
   }

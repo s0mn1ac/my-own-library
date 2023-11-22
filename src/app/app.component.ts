@@ -22,6 +22,7 @@ import { ConfigurationInterface } from './shared/interfaces/configuration.interf
 /* Enums */
 import { LanguageEnum } from './shared/enums/language.enum';
 import { ThemeEnum } from './shared/enums/theme.enum';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -30,15 +31,15 @@ import { ThemeEnum } from './shared/enums/theme.enum';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  protected readonly destroy$: Subject<boolean> = new Subject<boolean>();
+  public readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
-  protected readonly language$: Observable<LanguageEnum> = this.store.select(selectLanguage);
-  protected readonly theme$: Observable<ThemeEnum> = this.store.select(selectTheme);
-  protected readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
+  public readonly language$: Observable<LanguageEnum> = this.store.select(selectLanguage);
+  public readonly theme$: Observable<ThemeEnum> = this.store.select(selectTheme);
+  public readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
 
-  private language!: LanguageEnum;
-  private theme!: ThemeEnum;
-  private user!: UserInterface | null;
+  public language!: LanguageEnum;
+  public theme!: ThemeEnum;
+  public user!: UserInterface | null;
 
   private configuration!: ConfigurationInterface | undefined;
 
@@ -49,6 +50,12 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly store: Store
   ) { }
 
+
+  /* ----- Getters & Setters ------------------------------------------------------------------------------------------------------------ */
+
+  get currentUser(): User | null {
+    return this.authService.currentUser;
+  }
 
   /* ----- Life cycle methods ----------------------------------------------------------------------------------------------------------- */
 

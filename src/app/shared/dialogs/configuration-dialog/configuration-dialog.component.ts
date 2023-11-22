@@ -36,11 +36,11 @@ import { LanguageEnum } from '../../enums/language.enum';
 })
 export class ConfigurationDialogComponent implements OnInit, OnDestroy {
 
-  protected readonly destroy$: Subject<boolean> = new Subject<boolean>();
+  public readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
-  protected readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
-  protected readonly language$: Observable<LanguageEnum> = this.store.select(selectLanguage);
-  protected readonly theme$: Observable<ThemeEnum> = this.store.select(selectTheme);
+  public readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
+  public readonly language$: Observable<LanguageEnum> = this.store.select(selectLanguage);
+  public readonly theme$: Observable<ThemeEnum> = this.store.select(selectTheme);
 
   public user!: UserInterface | null;
   public languageSelected!: LanguageEnum;

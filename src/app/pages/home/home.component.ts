@@ -31,10 +31,10 @@ import { ConfigurationDialogOutputDataInterface } from '../../shared/dialogs/con
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  protected readonly destroy$: Subject<boolean> = new Subject<boolean>();
+  public readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
-  protected readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
-  protected readonly libraries$: Observable<LibraryInterface[]> = this.store.select(selectLibraries);
+  public readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
+  public readonly libraries$: Observable<LibraryInterface[]> = this.store.select(selectLibraries);
 
   public user!: UserInterface | null;
   public libraries!: LibraryInterface[];
@@ -60,13 +60,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   /* ----- On click methods ------------------------------------------------------------------------------------------------------------- */
-
-  public onClickShowConfigurationOptions(): void {
-
-    this.modalService.showCustomModal(ConfigurationDialogComponent).onClose
-      .pipe(take(1))
-      .subscribe((dialogOutputData: ConfigurationDialogOutputDataInterface | undefined) => console.log(dialogOutputData));
-  }
 
   public onClickAddLibrary(): void {
 

@@ -1,0 +1,18 @@
+div.application-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  section.application-layout__header {
+    z-index: 1;
+    box-shadow: var(--my-shadow-md);
+  }
+
+  section.application-layout__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+  }
+}

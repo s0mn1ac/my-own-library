@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<div class="application-layout">
+
+  <section class="application-layout__header" *ngIf="currentUser !== null">
+    <app-navigation-bar></app-navigation-bar>
+  </section>
+
+  <section class="application-layout__content">
+    <router-outlet></router-outlet>
+  </section>
+
+</div>

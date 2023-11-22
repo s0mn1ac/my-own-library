@@ -4,30 +4,29 @@
 
     <section class="navigation-bar-layout__left-action-section">
 
-      <p-button
-        [icon]="leftActionIcon"
-        [rounded]="true"
-        [text]="true"
-        severity="secondary"
-        *ngIf="leftActionIcon !== undefined"
-        (onClick)="onClickLeftActionButton()">
-      </p-button>
+<!--      <p-button-->
+<!--        [icon]="leftActionIcon"-->
+<!--        [rounded]="true"-->
+<!--        [text]="true"-->
+<!--        severity="secondary"-->
+<!--        *ngIf="leftActionIcon !== undefined"-->
+<!--        (onClick)="onClickLeftActionButton()">-->
+<!--      </p-button>-->
 
     </section>
 
     <section class="navigation-bar-layout__title-section">
-      <h2>{{ title }}</h2>
+      <h2>{{ t('home.title') }}</h2>
     </section>
 
     <section class="navigation-bar-layout__right-action-section">
 
       <p-button
-        [icon]="rightActionIcon"
+        icon="pi pi-cog"
         [rounded]="true"
         [text]="true"
         severity="secondary"
-        *ngIf="rightActionIcon !== undefined"
-        (onClick)="onClickRightActionButton()">
+        (onClick)="onClickOpenConfigurationDialog()">
       </p-button>
 
     </section>

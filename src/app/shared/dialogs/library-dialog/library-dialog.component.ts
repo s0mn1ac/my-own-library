@@ -35,9 +35,9 @@ import { ErrorEnum } from '../../enums/error.enum';
 })
 export class LibraryDialogComponent implements OnInit, OnDestroy {
 
-  protected readonly destroy$: Subject<boolean> = new Subject<boolean>();
+  public readonly destroy$: Subject<boolean> = new Subject<boolean>();
 
-  protected readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
+  public readonly user$: Observable<UserInterface | null> = this.store.select(selectUser);
 
   protected readonly LibraryDialogFormEnum: typeof LibraryDialogFormEnum = LibraryDialogFormEnum;
   protected readonly ErrorEnum: typeof ErrorEnum = ErrorEnum;
