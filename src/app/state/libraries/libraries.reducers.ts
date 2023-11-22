@@ -17,7 +17,7 @@ export const librariesFeatureName: string = 'libraries';
 
 export const initialState: LibrariesStateInterface = {
   libraries: [],
-  isLoading: true
+  isLoading: false
 };
 
 export const librariesReducer: ActionReducer<LibrariesStateInterface, Action> = createReducer(

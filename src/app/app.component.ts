@@ -7,6 +7,8 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 /* NgRx */
 import { Store } from '@ngrx/store';
 import { selectUser } from './state/user/user.selectors';
+import { selectLanguage } from './state/language/language.selectors';
+import { selectTheme } from './state/theme/theme.selectors';
 
 /* Services */
 import { AuthService } from './shared/services/auth.service';
@@ -18,10 +20,10 @@ import { LibrariesService } from './shared/services/libraries.service';
 import { UserInterface } from './shared/interfaces/user.interface';
 import { LibraryInterface } from './shared/interfaces/library.interface';
 import { ConfigurationInterface } from './shared/interfaces/configuration.interface';
+
+/* Enums */
 import { LanguageEnum } from './shared/enums/language.enum';
 import { ThemeEnum } from './shared/enums/theme.enum';
-import { selectLanguage } from './state/language/language.selectors';
-import { selectTheme } from './state/theme/theme.selectors';
 
 @Component({
   selector: 'app-root',
@@ -91,6 +93,9 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.configuration = undefined;
+    this.libraries = undefined;
+
     this.getConfiguration(this.user.uid).then();
     this.getLibraries(this.user.uid).then();
   }
@@ -107,11 +112,11 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     if (this.configuration.language !== this.language) {
-      this.dispatcherService.changeLanguage(this.configuration.language);
+      this.dispatcherService.changeLanguageLoad(this.configuration.language);
     }
 
     if (this.configuration.theme !== this.theme) {
-      this.dispatcherService.changeTheme(this.configuration.theme);
+      this.dispatcherService.changeThemeLoad(this.configuration.theme);
     }
   }
 
@@ -123,7 +128,7 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.dispatcherService.updateLibraries(this.libraries);
+    this.dispatcherService.getLibrariesSuccess(this.libraries);
   }
 
 }

@@ -77,11 +77,11 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
 
   public onClickChangeLanguage(language: LanguageEnum): void {
-    this.dispatcherService.changeLanguage(language);
+    this.dispatcherService.changeLanguageLoad(language);
   }
 
   public onClickChangeTheme(theme: ThemeEnum): void {
-    this.dispatcherService.changeTheme(theme);
+    this.dispatcherService.changeThemeLoad(theme);
   }
 
   public onClickSignOut(): void {

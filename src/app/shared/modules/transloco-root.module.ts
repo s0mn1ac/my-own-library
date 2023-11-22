@@ -1,36 +1,32 @@
 /* Angular */
 import { HttpClient } from '@angular/common/http';
-import { Injectable, isDevMode, NgModule } from '@angular/core';
+import { inject, Injectable, isDevMode, NgModule } from '@angular/core';
 
 /* Transloco */
-import { TRANSLOCO_LOADER, Translation, TranslocoLoader, TRANSLOCO_CONFIG, translocoConfig, TranslocoModule } from '@ngneat/transloco';
+import { Translation, TranslocoLoader, TranslocoModule, provideTransloco } from '@ngneat/transloco';
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
 
-  constructor(
-    private readonly http: HttpClient
-  ) { }
+  private httpClient: HttpClient = inject(HttpClient);
 
   getTranslation(lang: string) {
-    return this.http.get<Translation>(`/assets/i18n/${lang}.json`);
+    return this.httpClient.get<Translation>(`/assets/i18n/${lang}.json`);
   }
-
 }
 
 @NgModule({
-  exports: [ TranslocoModule ],
+  exports: [TranslocoModule],
   providers: [
-    {
-      provide: TRANSLOCO_CONFIG,
-      useValue: translocoConfig({
+    provideTransloco({
+      config: {
         availableLangs: ['en', 'es'],
-        defaultLang: 'es',
+        defaultLang: 'en',
         reRenderOnLangChange: true,
         prodMode: !isDevMode(),
-      })
-    },
-    { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader }
+      },
+      loader: TranslocoHttpLoader
+    })
   ]
 })
-export class TranslocoRootModule {}
+export class TranslocoRootModule { }

@@ -1,6 +1,5 @@
 /* Angular */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 /* RxJs */
 import { Observable, Subject, take, takeUntil } from 'rxjs';
@@ -36,7 +35,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly modalService: ModalService,
-    private readonly router: Router,
     private readonly store: Store
   ) { }
 

@@ -7,7 +7,7 @@ import { catchError, map, mergeMap, of } from 'rxjs';
 /* NgRx */
 import { Action } from '@ngrx/store';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
-import { changeLanguageError, changeLanguageLoad, changeLanguageSuccess, initLanguageState } from './language.actions';
+import { changeLanguageError, changeLanguageLoad, changeLanguageSuccess } from './language.actions';
 
 /* Services */
 import { LanguageService } from '../../shared/services/language.service';
@@ -17,16 +17,6 @@ import { LanguageEnum } from '../../shared/enums/language.enum';
 
 @Injectable()
 export class LanguageEffects implements OnInitEffects{
-
-
-  /* ----- Init Language State ---------------------------------------------------------------------------------------------------------- */
-
-  initLanguageState$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(initLanguageState),
-      map(() => changeLanguageLoad({ language: LanguageEnum.Es }))
-    );
-  });
 
 
   /* ----- Change Language -------------------------------------------------------------------------------------------------------------- */
@@ -50,7 +40,7 @@ export class LanguageEffects implements OnInitEffects{
   ) { }
 
   ngrxOnInitEffects(): Action {
-    return initLanguageState();
+    return changeLanguageLoad({ language: LanguageEnum.Es });
   }
 
 }

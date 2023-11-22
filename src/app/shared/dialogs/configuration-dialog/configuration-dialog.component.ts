@@ -118,8 +118,9 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
 
     this.authService.signOut()
       .then((): void => {
-        this.router.navigate(['/sign-in']).then();
+        this.dispatcherService.getLibrariesSuccess([]);
         this.dynamicDyalogRef.close(ConfigurationDialogActionEnum.Close);
+        this.router.navigate(['/sign-in']).then();
       })
       .catch((error: Error) => console.error(error))
       .finally((): boolean => this.isLoading = false);
@@ -130,7 +131,7 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
 
   public onChangeLanguage(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
 
-    this.dispatcherService.changeLanguage(selectButtonOptionClickEvent.option as LanguageEnum);
+    this.dispatcherService.changeLanguageLoad(selectButtonOptionClickEvent.option as LanguageEnum);
 
     if (this.user === null) {
       return;
@@ -141,7 +142,7 @@ export class ConfigurationDialogComponent implements OnInit, OnDestroy {
 
   public onChangeTheme(selectButtonOptionClickEvent: SelectButtonOptionClickEvent): void {
 
-    this.dispatcherService.changeTheme(selectButtonOptionClickEvent.option as ThemeEnum);
+    this.dispatcherService.changeThemeLoad(selectButtonOptionClickEvent.option as ThemeEnum);
 
     if (this.user === null) {
       return;

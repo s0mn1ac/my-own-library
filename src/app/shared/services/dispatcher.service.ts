@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { changeLanguageLoad } from '../../state/language/language.actions';
 import { changeThemeLoad } from '../../state/theme/theme.actions';
 import { getUserError, getUserLoad, getUserSuccess, updateUser } from '../../state/user/user.actions';
-import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, updateLibraryError, updateLibraryLoad, updateLibrarySuccess, updateLibraries } from '../../state/libraries/libraries.actions';
+import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, updateLibraryError, updateLibraryLoad, updateLibrarySuccess, updateLibraries, getLibrariesSuccess } from '../../state/libraries/libraries.actions';
 
 /* Interfaces */
 import { UserInterface } from '../interfaces/user.interface';
@@ -28,7 +28,7 @@ export class DispatcherService {
 
   /* ----- Language --------------------------------------------------------------------------------------------------------------------- */
 
-  public changeLanguage(language: LanguageEnum): void {
+  public changeLanguageLoad(language: LanguageEnum): void {
     this.store.dispatch(changeLanguageLoad({ language }));
   }
 
@@ -41,6 +41,10 @@ export class DispatcherService {
 
   public getLibrariesLoad(uid: string): void {
     this.store.dispatch(getLibrariesLoad({ uid }));
+  }
+
+  public getLibrariesSuccess(libraries: LibraryInterface[]): void {
+    this.store.dispatch(getLibrariesSuccess({ libraries }));
   }
 
   public createLibraryLoad(): void {
@@ -82,7 +86,7 @@ export class DispatcherService {
 
   /* ----- Theme ------------------------------------------------------------------------------------------------------------------------ */
 
-  public changeTheme(theme: ThemeEnum): void {
+  public changeThemeLoad(theme: ThemeEnum): void {
     this.store.dispatch(changeThemeLoad({ theme }));
   }
 

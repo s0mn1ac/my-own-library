@@ -8,9 +8,10 @@ div.navigation-bar-layout {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  background: transparent;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--my-background-color-high);
+  //background: transparent;
+  //backdrop-filter: blur(10px);
+  //-webkit-backdrop-filter: blur(10px);
 
   section.navigation-bar-layout__left-action-section,
   section.navigation-bar-layout__right-action-section {
