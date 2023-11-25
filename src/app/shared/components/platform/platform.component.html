@@ -1,0 +1,14 @@
+<div class="platform-layout" [ngSwitch]="platform" *transloco="let t">
+
+  <img src="/assets/icons/platforms/android.svg" *ngSwitchCase="PlatformEnum.Android" [alt]="t('platforms.Android')">
+  <img src="/assets/icons/platforms/ios.svg" *ngSwitchCase="PlatformEnum.IOS" [alt]="t('platforms.IOS')">
+  <img src="/assets/icons/platforms/linux.svg" *ngSwitchCase="PlatformEnum.Linux" [alt]="t('platforms.Linux')">
+  <img src="/assets/icons/platforms/mac.svg" *ngSwitchCase="PlatformEnum.Mac" [alt]="t('platforms.Mac')">
+  <img src="/assets/icons/platforms/nintendo.svg" *ngSwitchCase="PlatformEnum.NintendoSwitch" [alt]="t('platforms.NintendoSwitch')">
+  <img src="/assets/icons/platforms/ps.svg" *ngSwitchCase="PlatformEnum.PlayStation4" [alt]="t('platforms.PlayStation4')">
+  <img src="/assets/icons/platforms/ps.svg" *ngSwitchCase="PlatformEnum.PlayStation5" [alt]="t('platforms.PlayStation5')">
+  <img src="/assets/icons/platforms/windows.svg" *ngSwitchCase="PlatformEnum.Windows" [alt]="t('platforms.Windows')">
+  <img src="/assets/icons/platforms/xbox.svg" *ngSwitchCase="PlatformEnum.XboxOne" [alt]="t('platforms.XboxOne')">
+  <img src="/assets/icons/platforms/xbox.svg" *ngSwitchCase="PlatformEnum.XboxSeries" [alt]="t('platforms.XboxSeries')">
+
+</div>

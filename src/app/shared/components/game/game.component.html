@@ -1,7 +1,34 @@
-<div class="game-layout" *transloco="let t">
+<div class="game-layout" [ngClass]="{ 'hide-info': !showInfo }" *transloco="let t">
 
   <section class="game-layout__cover-section">
     <img [src]="game.cover" [alt]="t('game.boxCover')">
+  </section>
+
+  <section class="game-layout__info-section" *ngIf="showInfo">
+
+    <div class="info-section__title-container">
+      <h3>{{ game.name }}</h3>
+    </div>
+
+    <div class="info-section__additional-info-container">
+      <app-platform [platform]="platform" *ngFor="let platform of game.platforms">{{ platform }}</app-platform>
+    </div>
+
+    <div class="info-section__description-container">
+      <span>{{ game.description }}</span>
+    </div>
+
+    <div class="info-section__actions-container">
+
+      <p-button
+        [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-bookmark'"
+        [label]="t('buttons.save')"
+        [disabled]="isLoading"
+        severity="primary">
+      </p-button>
+
+    </div>
+
   </section>
 
 </div>

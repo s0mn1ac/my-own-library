@@ -1,4 +1,4 @@
-<div class="application-layout">
+<div class="application-layout" *ngIf="!isLoading">
 
   <section class="application-layout__header" *ngIf="currentUser !== null">
     <app-navigation-bar></app-navigation-bar>
@@ -8,4 +8,8 @@
     <router-outlet></router-outlet>
   </section>
 
+</div>
+
+<div class="application-loading-layout" *ngIf="isLoading">
+  <p-progressSpinner></p-progressSpinner>
 </div>

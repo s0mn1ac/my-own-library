@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { changeLanguageLoad, changeLanguageSuccess } from '../../state/language/language.actions';
 import { changeThemeLoad } from '../../state/theme/theme.actions';
 import { getUserError, getUserLoad, getUserSuccess, updateUser } from '../../state/user/user.actions';
-import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, updateLibraryError, updateLibraryLoad, updateLibrarySuccess, updateLibraries, getLibrariesSuccess } from '../../state/libraries/libraries.actions';
+import { createLibraryError, createLibraryLoad, createLibrarySuccess, deleteLibraryError, deleteLibraryLoad, deleteLibrarySuccess, getLibrariesLoad, updateLibraryError, updateLibraryLoad, updateLibrarySuccess, updateLibraries, getLibrariesSuccess, addGameToLibraryLoad, addGameToLibrarySuccess, addGameToLibraryError } from '../../state/libraries/libraries.actions';
 
 /* Interfaces */
 import { UserInterface } from '../interfaces/user.interface';
@@ -15,6 +15,7 @@ import { UserInterface } from '../interfaces/user.interface';
 import { LanguageEnum } from '../enums/language.enum';
 import { ThemeEnum } from '../enums/theme.enum';
 import { LibraryInterface } from '../interfaces/library.interface';
+import { GameInterface } from '../interfaces/game.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -85,6 +86,18 @@ export class DispatcherService {
 
   public deleteLibraryError(id: string, error: Error): void {
     this.store.dispatch(deleteLibraryError({ id, error }));
+  }
+
+  public addGameToLibraryLoad(libraryId: string, game: GameInterface): void {
+    this.store.dispatch(addGameToLibraryLoad({ libraryId, game }));
+  }
+
+  public addGameToLibrarySuccess(libraryId: string, game: GameInterface): void {
+    this.store.dispatch(addGameToLibrarySuccess({ libraryId, game }));
+  }
+
+  public addGameToLibraryError(libraryId: string, error: Error): void {
+    this.store.dispatch(addGameToLibraryError({ libraryId, error }));
   }
 
 

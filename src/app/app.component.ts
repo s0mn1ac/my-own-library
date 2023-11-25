@@ -14,10 +14,12 @@ import { selectTheme } from './state/theme/theme.selectors';
 import { AuthService } from './shared/services/auth.service';
 import { ConfigurationsService } from './shared/services/configurations.service';
 import { DispatcherService } from './shared/services/dispatcher.service';
+import { LibrariesService } from './shared/services/libraries.service';
 
 /* Interfaces */
 import { UserInterface } from './shared/interfaces/user.interface';
 import { ConfigurationInterface } from './shared/interfaces/configuration.interface';
+import { LibraryInterface } from './shared/interfaces/library.interface';
 
 /* Enums */
 import { LanguageEnum } from './shared/enums/language.enum';
@@ -43,10 +45,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private configuration!: ConfigurationInterface | undefined;
 
+  private _isLoading: boolean = false;
+
   constructor(
     private readonly authService: AuthService,
     private readonly configurationsService: ConfigurationsService,
     private readonly dispatcherService: DispatcherService,
+    private readonly librariesService: LibrariesService,
     private readonly store: Store
   ) { }
 
@@ -56,6 +61,15 @@ export class AppComponent implements OnInit, OnDestroy {
   get currentUser(): User | null {
     return this.authService.currentUser;
   }
+
+  get isLoading(): boolean {
+    return this._isLoading;
+  }
+
+  set isLoading(isLoading: boolean) {
+    this._isLoading = isLoading;
+  }
+
 
   /* ----- Life cycle methods ----------------------------------------------------------------------------------------------------------- */
 
@@ -98,7 +112,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.configuration = undefined;
 
-    this.getConfiguration(this.user.uid).then();
+    this.isLoading = true;
+
+    await this.getConfiguration(this.user.uid);
+    await this.getLibraries(this.user.uid);
+
+    this.isLoading = false;
   }
 
 
@@ -119,6 +138,17 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.configuration.theme !== this.theme) {
       this.dispatcherService.changeThemeLoad(this.configuration.theme);
     }
+  }
+
+  private async getLibraries(uid: string): Promise<void> {
+
+    const libraries: LibraryInterface[] | undefined = await this.librariesService.getLibraries(uid);
+
+    if (libraries === undefined) {
+      return;
+    }
+
+    this.dispatcherService.getLibrariesSuccess(libraries);
   }
 
 }

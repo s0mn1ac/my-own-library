@@ -25,6 +25,7 @@
 
   "titles": {
     "createAccount": "Crear cuenta",
+    "games": "Juegos",
     "home": "Inicio",
     "signIn": "Iniciar sesión"
   },
@@ -71,6 +72,19 @@
 
   "game": {
     "boxCover": "Carátula"
+  },
+
+  "platforms": {
+    "Android": "Android",
+    "IOS": "iOS",
+    "Linux": "Linux",
+    "Mac": "Mac",
+    "NintendoSwitch": "Nintendo Switch",
+    "PlayStation4": "PlayStation 4",
+    "PlayStation5": "PlayStation 5",
+    "Windows": "Windows",
+    "XboxOne": "Xbox One",
+    "XboxSeries": "Xbox Series"
   },
 
   "dialogs": {

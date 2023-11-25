@@ -15,6 +15,7 @@ import { NavigationBarComponent } from '../components/navigation-bar/navigation-
 import { LibraryComponent } from '../components/library/library.component';
 import { LibrarySkeletonComponent } from '../components/library/skeletons/library-skeleton/library-skeleton.component';
 import { GameComponent } from '../components/game/game.component';
+import { PlatformComponent } from '../components/platform/platform.component';
 import { LibraryDialogComponent } from '../dialogs/library-dialog/library-dialog.component';
 import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ConfigurationDialogComponent } from '../dialogs/configuration-dialog/configuration-dialog.component';
@@ -26,6 +27,7 @@ import { ConfigurationDialogComponent } from '../dialogs/configuration-dialog/co
     LibraryComponent,
     LibrarySkeletonComponent,
     GameComponent,
+    PlatformComponent,
     LibraryDialogComponent,
     ConfirmationDialogComponent,
     ConfigurationDialogComponent,
@@ -48,6 +50,7 @@ import { ConfigurationDialogComponent } from '../dialogs/configuration-dialog/co
     LibraryComponent,
     LibrarySkeletonComponent,
     GameComponent,
+    PlatformComponent,
     LibraryDialogComponent,
     ConfirmationDialogComponent,
     ConfigurationDialogComponent

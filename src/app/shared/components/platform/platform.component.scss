@@ -1,0 +1,12 @@
+div.platform-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  background-color: var(--my-color-primary);
+  border-radius: var(--my-border-radius-sm);
+  padding: 4px;
+  box-shadow: var(--my-shadow-xs);
+}

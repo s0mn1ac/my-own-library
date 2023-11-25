@@ -36,6 +36,14 @@ const routes: Routes = [
     title: 'titles.home',
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  {
+    path: 'games',
+    loadChildren: () => import('./pages/games/games.module')
+      .then((module) => module.GamesComponentModule),
+    title: 'titles.games',
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
   }
 ];
 

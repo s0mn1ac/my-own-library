@@ -1,6 +1,6 @@
 /* NgRx */
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { createLibraryError, createLibrarySuccess, getLibrariesError, getLibrariesLoad, getLibrariesSuccess, deleteLibraryLoad, deleteLibrarySuccess, deleteLibraryError, updateLibraries, updateLibraryLoad, updateLibrarySuccess, updateLibraryError } from './libraries.actions';
+import { createLibraryError, createLibrarySuccess, getLibrariesError, getLibrariesLoad, getLibrariesSuccess, deleteLibraryLoad, deleteLibrarySuccess, deleteLibraryError, updateLibraries, updateLibraryLoad, updateLibrarySuccess, updateLibraryError, addGameToLibraryLoad, addGameToLibrarySuccess, addGameToLibraryError } from './libraries.actions';
 
 /* Lodash */
 import { orderBy } from 'lodash';
@@ -84,6 +84,27 @@ export const librariesReducer: ActionReducer<LibrariesStateInterface, Action> = 
     ...state,
     libraries: state.libraries
       .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === id
+        ? ({ ...libraryToMap, isLoading: false })
+        : libraryToMap)
+  })),
+  on(addGameToLibraryLoad, (state, { libraryId, game }): LibrariesStateInterface => ({
+    ...state,
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === libraryId
+        ? ({ ...libraryToMap, isLoading: true })
+        : libraryToMap)
+  })),
+  on(addGameToLibrarySuccess, (state, { libraryId, game }): LibrariesStateInterface => ({
+    ...state,
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === libraryId
+        ? ({ ...libraryToMap, games: [...libraryToMap.games, game], isLoading: false })
+        : libraryToMap)
+  })),
+  on(addGameToLibraryError, (state, { libraryId, error }): LibrariesStateInterface => ({
+    ...state,
+    libraries: state.libraries
+      .map((libraryToMap: LibraryInterface): LibraryInterface => libraryToMap.id === libraryId
         ? ({ ...libraryToMap, isLoading: false })
         : libraryToMap)
   }))

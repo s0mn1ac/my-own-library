@@ -1,0 +1,10 @@
+@import 'src/styles/mixins';
+
+div.games-page-layout {
+
+  section.games-page-layout__games-section {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
+  }
+}

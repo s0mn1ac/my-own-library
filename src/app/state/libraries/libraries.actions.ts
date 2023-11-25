@@ -110,17 +110,17 @@ export const deleteLibraryError = createAction(
 
 export const addGameToLibraryLoad = createAction(
   LibrariesStateEnum.AddGameToLibraryLoad,
-  props<{ game: GameInterface }>()
+  props<{ libraryId: string, game: GameInterface }>()
 );
 
 export const addGameToLibrarySuccess = createAction(
   LibrariesStateEnum.AddGameToLibrarySuccess,
-  props<{ game: GameInterface }>()
+  props<{ libraryId: string, game: GameInterface }>()
 );
 
 export const addGameToLibraryError = createAction(
   LibrariesStateEnum.AddGameToLibraryError,
-  props<{ error: Error }>()
+  props<{ libraryId: string, error: Error }>()
 );
 
 

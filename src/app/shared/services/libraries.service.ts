@@ -18,6 +18,7 @@ import { FirestoreLibraryInterface } from '../interfaces/firestore-library.inter
 
 /* Constants */
 import { LibrariesCollection } from '../constants/collections.constants';
+import { FirestoreGameInterface } from '../interfaces/firestore-game.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -101,22 +102,17 @@ export class LibrariesService {
   }
 
 
-  /* ----- Add Item to Library ---------------------------------------------------------------------------------------------------------- */
+  /* ----- Add Game to Library ---------------------------------------------------------------------------------------------------------- */
 
-  public addGamesToLibrary(id: string, game: GameInterface): Promise<void> {
-    return updateDoc(doc(this.firestore, LibrariesCollection, id), {
-      games: arrayUnion({
-        description: game.description,
-        cover: game.cover,
-        id: game.id,
-        name: game.name,
-        platforms: game.platforms
-      })
-    });
+  public addGameToLibrary(libraryId: string, game: GameInterface): Promise<void> {
+    this.dispatcherService.addGameToLibraryLoad(libraryId, game);
+    return updateDoc(doc(this.firestore, LibrariesCollection, libraryId), { games: arrayUnion(game) })
+      .then((): void => this.dispatcherService.addGameToLibrarySuccess(libraryId, game))
+      .catch((error: Error) => this.dispatcherService.deleteLibraryError(libraryId, error));
   }
 
 
-  /* ----- Remove Item from Library ----------------------------------------------------------------------------------------------------- */
+  /* ----- Remove Game from Library ----------------------------------------------------------------------------------------------------- */
 
   public removeGameFromLibrary(id: string, game: GameInterface): Promise<void> {
     return updateDoc(doc(this.firestore, LibrariesCollection, id), {
