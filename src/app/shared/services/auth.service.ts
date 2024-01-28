@@ -30,6 +30,10 @@ export class AuthService {
     return this.auth.currentUser;
   }
 
+  get authStateReady(): Promise<void> {
+    return this.auth.authStateReady();
+  }
+
 
   /* ----- Sign Up ---------------------------------------------------------------------------------------------------------------------- */
 

@@ -5,17 +5,10 @@ import { createAction, props } from '@ngrx/store';
 import { ThemeEnum } from '../../shared/enums/theme.enum';
 
 export enum ThemeStateEnum {
-  InitThemeState = '[Theme] Init Theme State',
   ChangeThemeLoad = '[Theme] [Load] Change Theme',
   ChangeThemeSuccess = '[Theme] [Success] Change Theme',
   ChangeThemeError = '[Theme] [Error] Change Theme',
 }
-
-/* ----- Init Theme State --------------------------------------------------------------------------------------------------------------- */
-
-export const initThemeState = createAction(
-  ThemeStateEnum.InitThemeState
-);
 
 
 /* ----- Change Theme ------------------------------------------------------------------------------------------------------------------- */

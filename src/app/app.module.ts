@@ -1,5 +1,5 @@
 /* Angular */
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -25,10 +25,15 @@ import { SharedModule } from './shared/modules/shared.module';
 
 /* Services */
 import { AuthService } from './shared/services/auth.service';
+import { ConfigurationsService } from './shared/services/configurations.service';
 import { CustomTitleStrategyService } from './shared/services/custom-title-strategy.service';
 
 /* Components */
 import { AppComponent } from './app.component';
+
+export function configurationLoader(authService: AuthService, configurationsService: ConfigurationsService) {
+  return () => authService.authStateReady.then(() => configurationsService.getConfiguration(authService.currentUser));
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,7 +53,12 @@ import { AppComponent } from './app.component';
     SharedModule
   ],
   providers: [
-    AuthService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: configurationLoader,
+      deps: [AuthService, ConfigurationsService],
+      multi: true
+    },
     {
       provide: TitleStrategy,
       useClass: CustomTitleStrategyService

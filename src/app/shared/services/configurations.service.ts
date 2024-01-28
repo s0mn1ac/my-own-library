@@ -1,48 +1,87 @@
 /* Angular */
 import { Injectable } from '@angular/core';
-import { collectionData, deleteDoc, doc, Firestore, getDoc, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { deleteDoc, doc, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 
 /* Firebase */
-import { collection, CollectionReference, query, Query, DocumentSnapshot, DocumentData, QuerySnapshot, QueryDocumentSnapshot } from '@firebase/firestore';
+import { collection, CollectionReference, DocumentData, DocumentSnapshot } from '@firebase/firestore';
+
+/* Services */
+import { DispatcherService } from './dispatcher.service';
+import { LocalStorageService } from './local-storage.service';
 
 /* Interfaces */
 import { FirestoreConfigurationInterface } from '../interfaces/firestore-configuration.interface';
+import { ConfigurationInterface } from '../interfaces/configuration.interface';
+import { User } from '@angular/fire/auth';
+
+/* Enums */
+import { LanguageEnum } from '../enums/language.enum';
+import { ThemeEnum } from '../enums/theme.enum';
+
 
 /* Constants */
 import { ConfigurationsCollection } from '../constants/collections.constants';
-import { Observable } from 'rxjs';
-import { ConfigurationInterface } from '../interfaces/configuration.interface';
-import { LanguageEnum } from '../enums/language.enum';
-import { ThemeEnum } from '../enums/theme.enum';
-import { LibraryInterface } from '../interfaces/library.interface';
+import { Language, Theme } from '../constants/local-storage.constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigurationsService {
 
+  private _configuration!: ConfigurationInterface | undefined;
+  private _currentLanguage!: LanguageEnum;
+  private _currentTheme!: ThemeEnum;
+
   private readonly configurationsCollection!: CollectionReference;
 
   constructor(
-    private readonly firestore: Firestore
+    private readonly dispatcherService: DispatcherService,
+    private readonly firestore: Firestore,
+    private readonly localStorageService: LocalStorageService
   ) {
     this.configurationsCollection = collection(this.firestore, ConfigurationsCollection);
   }
 
 
-  /* ----- Get Configuration ------------------------------------------------------------------------------------------------------------ */
+  /* ----- Getters & Setters ------------------------------------------------------------------------------------------------------------ */
 
-  public getConfigurationSubscription(uid: string): Observable<ConfigurationInterface[]> {
-    const configurationsQuery: Query = query(collection(this.firestore, ConfigurationsCollection), where('owner', '==', uid));
-    return collectionData(configurationsQuery, { idField: 'id' }) as Observable<ConfigurationInterface[]>;
+  get configuration(): ConfigurationInterface | undefined {
+    return this._configuration;
   }
 
-  public async getConfiguration(id: string): Promise<ConfigurationInterface | undefined> {
-    let configuration: ConfigurationInterface | undefined = undefined;
-    await getDoc(doc(this.firestore, ConfigurationsCollection, id))
-      .then((documentSnapshot: DocumentSnapshot) => configuration = this.mapConfigurationFromDocumentSnapshot(documentSnapshot))
+  set configuration(configuration: ConfigurationInterface | undefined) {
+    this._configuration = configuration;
+  }
+
+  get currentLanguage(): LanguageEnum {
+    return this._currentLanguage;
+  }
+
+  set currentLanguage(currentLanguage: LanguageEnum) {
+    this._currentLanguage = currentLanguage;
+  }
+
+  get currentTheme(): ThemeEnum {
+    return this._currentTheme;
+  }
+
+  set currentTheme(currentTheme: ThemeEnum) {
+    this._currentTheme = currentTheme;
+  }
+
+
+  /* ----- Get Configuration ------------------------------------------------------------------------------------------------------------ */
+
+  public getConfiguration(user: User | null): Promise<void | ConfigurationInterface | undefined> | undefined {
+
+    if (user === null) {
+      this.loadConfiguration(undefined);
+      return;
+    }
+
+    return getDoc(doc(this.firestore, ConfigurationsCollection, user.uid))
+      .then((documentSnapshot: DocumentSnapshot) => this.loadConfiguration(this.mapConfigurationFromDocumentSnapshot(documentSnapshot)))
       .catch(() => console.log('TODO: ERROR'));
-    return configuration;
   }
 
 
@@ -90,6 +129,42 @@ export class ConfigurationsService {
         language: documentSnapshotData['language'] as LanguageEnum,
         theme: documentSnapshotData['theme'] as ThemeEnum
       };
+  }
+
+  private loadConfiguration(configuration: ConfigurationInterface | undefined): void {
+
+    if (configuration === undefined) {
+      this.loadConfigurationFromLocalStorage();
+      return;
+    }
+
+    this.configuration = configuration;
+
+    this.setLanguage(this.configuration.language);
+    this.setTheme(this.configuration.theme);
+  }
+
+  private loadConfigurationFromLocalStorage(): void {
+    this.setLanguage((this.localStorageService.get(Language) as LanguageEnum) ?? null);
+    this.setTheme((this.localStorageService.get(Theme) as ThemeEnum) ?? null);
+  }
+
+  private setLanguage(language: LanguageEnum | null): void {
+
+    if (language === null || language === this.currentLanguage) {
+      return;
+    }
+
+    this.dispatcherService.changeLanguageLoad(language);
+  }
+
+  private setTheme(theme: ThemeEnum | null): void {
+
+    if (theme === null || theme === this.currentTheme) {
+      return;
+    }
+
+    this.dispatcherService.changeThemeLoad(theme);
   }
 
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 /* Services */
 import { AuthService } from '../../shared/services/auth.service';
+import { ConfigurationsService } from '../../shared/services/configurations.service';
 
 /* Interfaces */
 import { SignInInterface } from './interfaces/sign-in.interface';
@@ -30,6 +31,7 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
+    private readonly configurationsService: ConfigurationsService,
     private readonly router: Router
   ) { }
 
@@ -69,7 +71,8 @@ export class SignInComponent implements OnInit {
     this.isLoading = true;
     const signIn: SignInInterface = this.form.value;
     this.authService.signInWithEmailAndPassword(signIn.email, signIn.password)
-      .then(() => this.router.navigate(['/home']).then())
+      .then(() => this.configurationsService.getConfiguration(this.authService.currentUser)
+        ?.then(() => this.router.navigate(['/home']).then()))
       .catch((error: Error) => console.error(error))
       .finally((): boolean => this.isLoading = false);
   }
