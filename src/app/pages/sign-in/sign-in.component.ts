@@ -89,8 +89,8 @@ export class SignInComponent implements OnInit {
 
   private initForm(): void {
     this.form = new FormGroup<SignInFormInterface>({
-      email: new FormControl({ value: 'user003@juanmigonzalez.dev', disabled: false }, [Validators.required]),
-      password: new FormControl({ value: 'user003', disabled: false }, [Validators.required])
+      email: new FormControl({ value: null, disabled: false }, [Validators.required]),
+      password: new FormControl({ value: null, disabled: false }, [Validators.required])
     });
   }
 
